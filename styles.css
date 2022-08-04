@@ -1,10 +1,20 @@
+/* 
+styles.css
+- styling for natsurii's landing page  
 
+author: Natsurii (@natsurii)
+creation date: 2022-08-04
+*/
+
+/* BASE STYLE */
 :root {
-    --black: #000;
-    --white: #fff;
-    --eton: #86CB92;
-    --honolulu: #0E6BA8;
-    --eminence: #643173;
+
+    /* color palette */
+    --black: #242423;
+    --white: #e8eddf;
+    --gray: #333533;
+    --primary: #f5cb5c;
+    --secondary: #cfdbd5;
 }
 
 * {
@@ -18,5 +28,42 @@ html {
 }
 
 body {
+    color: var(--black);
+    background: var(--white);
     font-size: 2.4rem;
+    font-family: 'Satoshi', sans-serif;
 }
+
+h1 {
+    font-size: 9.6rem;
+    font-weight: bolder;
+}
+/* HEADER */
+header {
+    padding: 5rem 15%;
+}
+
+/* HERO (banner) */
+.hero {
+    padding: 0 15%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 5em;
+    align-items: center;
+    justify-content:space-evenly;
+}
+
+.left > h1 {
+    margin: 2rem auto;
+    line-height: 0.8;
+}
+
+.right {
+    flex: 2 0 0;
+}
+#fig {
+    height: 45rem;
+}
+
+/* INTEREST */
