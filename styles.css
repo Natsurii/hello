@@ -146,3 +146,11 @@ background: linear-gradient(180deg, rgba(232,237,223,1) 0%, rgba(245,203,92,1) 4
     border-radius: 15px;
     box-shadow: 10px 10px 21px rgba(51, 53, 51, 0.4);
 }
+
+footer {
+    padding: 2rem;
+    text-align: center;
+    color: var(--white);
+    font-size: 1.2rem;
+    background: var(--gray);
+}
