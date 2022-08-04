@@ -130,6 +130,7 @@ background: linear-gradient(180deg, rgba(232,237,223,1) 0%, rgba(245,203,92,1) 4
 }
 
 .school-info {
+    width: 25em;
     padding: 1rem;
 }
 
@@ -140,6 +141,8 @@ background: linear-gradient(180deg, rgba(232,237,223,1) 0%, rgba(245,203,92,1) 4
 .school-image {
     width: 150px;
     height: 150px;
+    object-fit: cover;
+    object-position: 50% 50%;
     border-radius: 15px;
     box-shadow: 10px 10px 21px rgba(51, 53, 51, 0.4);
 }
