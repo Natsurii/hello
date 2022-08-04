@@ -1,0 +1,22 @@
+
+:root {
+    --black: #000;
+    --white: #fff;
+    --eton: #86CB92;
+    --honolulu: #0E6BA8;
+    --eminence: #643173;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 61.5%;
+}
+
+body {
+    font-size: 2.4rem;
+}
