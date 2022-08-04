@@ -111,5 +111,35 @@ background: linear-gradient(180deg, rgba(232,237,223,1) 0%, rgba(245,203,92,1) 4
 /* Attainment */
 
 .attainment {
-    padding: 2rem 15%;
+    padding: 5rem 15%;
+}
+
+.educ-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+}
+
+.school {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 2.5rem;
+}
+
+.school-info {
+    padding: 1rem;
+}
+
+.school-info > p {
+    font-size: 1.4rem;
+    margin-left: auto;
+}
+.school-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 15px;
+    box-shadow: 10px 10px 21px rgba(51, 53, 51, 0.4);
 }
