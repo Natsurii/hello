@@ -23,6 +23,17 @@ creation date: 2022-08-04
     box-sizing: border-box;
 }
 
+/* Media query for screens with a maximum width of 768px (typical for mobile devices) */
+@media (max-width: 768px) {
+    /* Styles to apply on smaller screens (e.g., mobile devices) */
+    /* Add your mobile-specific styles here */
+
+    .slide__card{
+        height: 250px;
+    }
+    
+  }
+
 html {
     font-size: 61.5%;
 }
@@ -138,9 +149,8 @@ background: linear-gradient(180deg, rgba(232,237,223,1) 0%, rgba(245,203,92,1) 4
 
 }
 
-
 .slide__card{
-    height: 500px;
+    height: 20em;
     color: var(--white);
     margin: 3em calc(2rem + 5vw);
     display: flex;
