@@ -1,0 +1,39 @@
+[
+    {
+      "prj": "The Walled City",
+      "des": "A static site using React",
+      "img": "twc.png",
+      "link": "https://github.com/Natsurii/thewalledcity"
+    },
+    {
+      "prj": "Lexis",
+      "des": "Word game written in ASM",
+      "img": "lexis.png",
+      "link": "https://github.com/Natsurii/lexis.asm"
+    },
+    {
+      "prj": "etch sketch",
+      "des": "A replication of Toy in Vanilla JS",
+      "img": "etch.png",
+      "link": "https://github.com/Natsurii/odin-etch-sketch"
+    },
+    {
+      "prj": "LM317ps",
+      "des": "Open source bridge rectifier circuit",
+      "img": "ps.png",
+      "link": "https://github.com/Natsurii/LM317ps"
+    },
+    {
+      "prj": "Janken!",
+      "des": "Play rock paper scissors with computer",
+      "img": "janken.png",
+      "link": "https://github.com/Natsurii/odin-rps"
+    },
+    {
+      "prj": "Abante Bot",
+      "des": "Facebook bot that generates random headlines",
+      "img": "ABB.png",
+      "link": "https://github.com/Natsurii/bruv"
+    }
+  ]
+  

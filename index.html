@@ -6,7 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="assets/favicon.ico" type="image/icon type">
     <link rel="stylesheet" href="styles.css">
+    
+    <!-- Fonts -->
     <link href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,301,701,300,501,401,901,400&display=swap" rel="stylesheet">
+    
+    <!-- Glide.JS -->
+    <script src="glide.min.js"></script>
+    <link rel="stylesheet" href="glide.core.css">
+    <link rel="stylesheet" href="glide.theme.css">
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-2WG480CVCZ"></script>
     <script>
@@ -39,24 +47,116 @@
         <h2>interests</h2>
         <p>Here's a round-up what I do.</p>
         <div class="card-container">
-            <div class="card">
+            <div class="card glass">
                 <img src="assets/icons/3d-fluency-network-card.png" alt="">
                 <h5>Computer Hardware</h5>
             </div>
-            <div class="card">
+            <div class="card glass">
                 <img src="assets/icons/3d-flame-computer-screen-with-smile.png" alt="">
                 <h5>Software</h5>
             </div>
-            <div class="card">
+            <div class="card glass">
                 <img src="assets/icons/3d-flame-business-statistics-on-smartphone-screen.png" alt="">
                 <h5>Internet of Things</h5>
             </div>
-            <div class="card">
+            <div class="card glass">
                 <img src="
                 assets/icons/3d-fluency-pencil.png" alt="">
                 <h5>Graphic Design</h5>
             </div>
         </div>
+    </div>
+
+    <div class="projects">
+        <h2>projects</h2>
+        <p>That I've created from past few months.</p>
+
+        <div class="glide">
+            <div class="glide__track" data-glide-el="track">
+                <ul class="glide__slides">
+                    <!-- Add more slides as needed -->
+                    <li class="glide__slide">
+                      <a href="https://github.com/Natsurii/thewalledcity" style="text-decoration: none; color: inherit;">
+                        <div class="slide__card glass" style="
+                          background: linear-gradient(133deg, rgba(51,53,51,0.654867049358806) 0%, rgba(51,53,51,1) 67%, rgba(51,53,51,1) 100%), url('assets/projects/twc.png');
+                          background-size: cover;
+                        ">
+                          <h2>The Walled City</h2>
+                          <p>A static site using React</p>
+                        </div>
+                      </a>
+                    </li>
+                    
+                    <li class="glide__slide">
+                      <a href="https://github.com/Natsurii/lexis.asm" style="text-decoration: none; color: inherit;">
+                        <div class="slide__card glass" style="
+                          background: linear-gradient(133deg, rgba(51,53,51,0.654867049358806) 0%, rgba(51,53,51,1) 67%, rgba(51,53,51,1) 100%), url('assets/projects/lexis.png');
+                          background-size: cover;
+                        ">
+                          <h2>Lexis</h2>
+                          <p>Word game written in ASM</p>
+                        </div>
+                      </a>
+                    </li>
+                    
+                    <li class="glide__slide">
+                      <a href="https://github.com/Natsurii/odin-etch-sketch" style="text-decoration: none; color: inherit;">
+                        <div class="slide__card glass" style="
+                          background: linear-gradient(133deg, rgba(51,53,51,0.654867049358806) 0%, rgba(51,53,51,1) 67%, rgba(51,53,51,1) 100%), url('assets/projects/etch.png');
+                          background-size: cover;
+                        ">
+                          <h2>etch sketch</h2>
+                          <p>A replication of Toy in Vanilla JS</p>
+                        </div>
+                      </a>
+                    </li>
+                    
+                    <li class="glide__slide">
+                      <a href="https://github.com/Natsurii/LM317ps" style="text-decoration: none; color: inherit;">
+                        <div class="slide__card glass" style="
+                          background: linear-gradient(133deg, rgba(51,53,51,0.654867049358806) 0%, rgba(51,53,51,1) 67%, rgba(51,53,51,1) 100%), url('assets/projects/ps.png');
+                          background-size: cover;
+                        ">
+                          <h2>LM317ps</h2>
+                          <p>Open source bridge rectifier circuit</p>
+                        </div>
+                      </a>
+                    </li>
+                    
+                    <li class="glide__slide">
+                      <a href="https://github.com/Natsurii/odin-rps" style="text-decoration: none; color: inherit;">
+                        <div class="slide__card glass" style="
+                          background: linear-gradient(133deg, rgba(51,53,51,0.654867049358806) 0%, rgba(51,53,51,1) 67%, rgba(51,53,51,1) 100%), url('assets/projects/janken.png');
+                          background-size: cover;
+                        ">
+                          <h2>Janken!</h2>
+                          <p>Play rock paper scissors with computer</p>
+                        </div>
+                      </a>
+                    </li>
+                    
+                    <li class="glide__slide">
+                      <a href="https://github.com/Natsurii/bruv" style="text-decoration: none; color: inherit;">
+                        <div class="slide__card glass" style="
+                          background: linear-gradient(133deg, rgba(51,53,51,0.654867049358806) 0%, rgba(51,53,51,1) 67%, rgba(51,53,51,1) 100%), url('assets/projects/ABB.png');
+                          background-size: cover;
+                        ">
+                          <h2>Abante Bot</h2>
+                          <p>Facebook bot that generates random headlines</p>
+                        </div>
+                      </a>
+                    </li>
+                  </ul>
+                  
+            </div>
+        
+            <div class="glide__arrows" data-glide-el="controls">
+                <button class="glide__arrow glide__arrow--left" data-glide-dir="<">&leftarrow;</button>
+                <button class="glide__arrow glide__arrow--right" data-glide-dir=">">&rightarrow;</button>
+            </div>
+
+        </div>
+        
     </div>
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 150"><path fill="#f5cb5c" fill-opacity="1" d="M0,32L48,58.7C96,85,192,139,288,133.3C384,128,480,64,576,58.7C672,53,768,107,864,128C960,149,1056,139,1152,122.7C1248,107,1344,85,1392,74.7L1440,64L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>

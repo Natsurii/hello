@@ -34,8 +34,22 @@ body {
     font-family: 'Satoshi', sans-serif;
 }
 
+.glass {
+    background: rgba( 255, 255, 255, 0.15 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 1.5px );
+    -webkit-backdrop-filter: blur( 1.5px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+
 h1 {
-    font-size: 9.6rem;
+    font-size: calc(4rem + 5vw);
+    font-weight: bolder;
+}
+
+h2 {
+    font-size: calc(2rem + 5vw);
     font-weight: bolder;
 }
 /* HEADER */
@@ -68,7 +82,7 @@ header {
     margin: 0 auto;
 }
 #fig {
-    height: calc(250px + 10vw);
+    height: calc(200px + 10vw);
 }
 
 .fadeInText {
@@ -85,6 +99,8 @@ header {
 background: linear-gradient(180deg, rgba(232,237,223,1) 0%, rgba(245,203,92,1) 41%, rgba(245,203,92,1) 100%);
 }
 
+
+
 .card-container {
     padding: 5rem;
     display: flex;
@@ -100,7 +116,6 @@ background: linear-gradient(180deg, rgba(232,237,223,1) 0%, rgba(245,203,92,1) 4
     width: 200px;
     text-align: center;
     border-radius: 36px;
-    box-shadow: 10px 10px 21px rgba(51, 53, 51, 0.4);
     align-items: center;
     justify-content: center;
 }
@@ -115,10 +130,33 @@ background: linear-gradient(180deg, rgba(232,237,223,1) 0%, rgba(245,203,92,1) 4
     margin-top: auto;
 }
 
+
+.projects {
+    padding: 5rem 15%;
+    text-align: center;
+    background:  rgb(245,203,92,1);
+
+}
+
+
+.slide__card{
+    height: 500px;
+    color: var(--white);
+    margin: 3em calc(2rem + 5vw);
+    display: flex;
+    border-radius: 36px;
+    background: linear-gradient(133deg, rgba(51,53,51,0.654867049358806) 0%, rgba(51,53,51,1) 67%, rgba(51,53,51,1) 100%);
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
 /* Attainment */
 
 .attainment {
     padding: 5rem 15%;
+    text-align: center;
 }
 
 .educ-container {
@@ -131,12 +169,13 @@ background: linear-gradient(180deg, rgba(232,237,223,1) 0%, rgba(245,203,92,1) 4
     display: flex;
     flex-wrap: wrap;
     gap: 16px;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     padding: 2.5rem;
 }
 
 .school-info {
+    text-align: left;
     width: 25em;
     padding: 1rem;
 }
