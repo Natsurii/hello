@@ -1,0 +1,70 @@
+/* Load the custom font */
+@font-face {
+    font-family: 'IBM VGA';
+    src: url('./assets/Px437_IBM_VGA_9x16.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  html, body {
+    margin: 0;
+    padding: 0;
+    background-color: #000;
+    color: lightgray;
+    font-family: 'IBM VGA', monospace;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center; /* Horizontally center */
+    align-items: center;     /* Vertically center */
+    overflow: hidden;
+  }
+  
+  #ascii-art {
+    padding: 10px;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    box-sizing: border-box;
+    text-shadow: 0 0 2px lightgray, 0 0 1px lightgray, 0 0 1px #00f, 0 0 5px #00f; /* Glowing effect */
+    overflow: auto;
+    white-space: pre-wrap;
+    display: block;
+    opacity: 0; /* Initially hidden */
+    animation: fadeIn 1s forwards; /* Fade-in effect */
+  }
+  
+  /* Fade-in animation for ascii-art */
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  /* Hide the scrollbar */
+  #ascii-art::-webkit-scrollbar {
+    display: none;
+  }
+  
+  #ascii-art {
+    -ms-overflow-style: none; /* For IE and Edge */
+    scrollbar-width: none; /* For Firefox */
+  }
+  
+  @media (max-width: 800px) {
+    #ascii-art {
+      font-size: calc(6px + 0.5vw);
+    }
+  }
+  
+  /* For larger screens (1200px and above) */
+  @media (min-width: 1200px) {
+    #ascii-art {
+      font-size: calc(16px + 0.7vw); /* Increase font size for larger screens */
+    }
+  }
+  
