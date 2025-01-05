@@ -1,0 +1,48 @@
+<!--
+ Copyright (c) 2025 Natsurii
+ 
+ This software is released under the MIT License.
+ https://opensource.org/licenses/MIT
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta
+    name="description"
+    content="Natsurii's Portfolio. Front Page">
+  <title>Natsurii - Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="./jquery-3.7.1.min.js"></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="ascii-container"></header>
+  <main class="ascii-container"></main>
+  <footer class="ascii-container"></footer>
+  
+  <!-- CSP violation >:D -->
+  <!-- This is just static site. -->
+
+  <script>
+  $(document).ready(function () {
+    // Load all components
+    asciiToHTML('./components/header.utf8ans', 'header', 2, 5, function() {
+        // Add hyperlink after the header ASCII art has been typed
+        addHyperlinkToText('header', '<home>', 'index.html');
+        addHyperlinkToText('header', '<about>', 'about.html');
+        addHyperlinkToText('header', '<blogs>', 'blogs.html');
+
+    });
+
+
+    asciiToHTML('./components/footer.utf8ans', 'footer', 2, 5);
+    asciiToHTML('./components/404.utf8ans', 'main', 20, 100);
+  });
+  </script>
+  
+  <!-- End of CSP violation -->
+</body>
+</html>
