@@ -63,7 +63,7 @@ function addHyperlinkToText(elementSelector, textToFind, linkURL) {
   const escapedText = textToFind.replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
   // Replace the target text with a hyperlink
-  const newContent = content.replace(escapedText, `<a href="${linkURL}" target="_blank">${escapedText}</a>`);
+  const newContent = content.replace(escapedText, `<a href="${linkURL}">${escapedText}</a>`);
 
   // Update the element's content with the new HTML
   element.empty().append(newContent);
