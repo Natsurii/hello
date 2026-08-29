@@ -18,6 +18,8 @@ TEMPLATE = """<!--
   <meta name="description" content="{description}">
   <title>Natsurii - {title}</title>
   
+  <link rel="icon" type="image/gif" href="assets/favicon.gif">
+  
   <!-- Open Graph / Social SEO -->
   <meta property="og:title" content="{title}">
   <meta property="og:description" content="{description}">

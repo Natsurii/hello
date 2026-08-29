@@ -171,3 +171,87 @@ function parseMarkdown(markdown) {
 
   return html;
 }
+
+// Animated favicon: draws glyphs (IBM VGA, white on black) onto a canvas and
+// hot-swaps the <link rel="icon"> each frame. Works in browsers that don't
+// animate GIF favicons.
+//
+// Technique: each frame removes the old <link> and inserts a brand-new one with a
+// unique, cache-busting URL. Mutating an existing link's href often gets cached
+// by the browser and never re-renders, so we always replace it.
+//
+// Timeline (repeats forever, ~12s per loop):
+//   Phase A - N / blank / full block, repeated 3x:
+//     N    : 1.0s
+//     blank: 0.5s
+//     block: 1.0s
+//     blank: 0.5s
+//   Phase B - spinner (- \ | /), each 20ms, for 3.0s
+function initAnimatedFavicon() {
+  var SIZE = 16;
+
+  function drawFavicon(text) {
+    var canvas = document.createElement('canvas');
+    canvas.width = SIZE;
+    canvas.height = SIZE;
+    var ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#000';
+    ctx.fillRect(0, 0, SIZE, SIZE);
+    ctx.fillStyle = '#fff';
+    ctx.font = "16px 'IBM VGA', monospace";
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(text, SIZE / 2, SIZE / 2 + 1);
+
+    // Remove the previous favicon link (if any) so the browser re-reads the icon.
+    var prev = document.querySelector('link[rel="icon"]');
+    if (prev) prev.parentNode.removeChild(prev);
+
+    // Insert a fresh link with a unique URL so the browser doesn't cache it.
+    var link = document.createElement('link');
+    link.rel = 'icon';
+    link.type = 'image/png';
+    link.href = canvas.toDataURL('image/png', '') + '#' + Date.now();
+    (document.head || document.documentElement).appendChild(link);
+  }
+
+  var sleep = function (ms) {
+    return new Promise(function (resolve) { setTimeout(resolve, ms); });
+  };
+
+  var start = function () {
+    var spinner = ['-', '\\', '|', '/'];
+    (async function loop() {
+      for (;;) {
+        for (var cycle = 0; cycle < 3; cycle++) {
+          drawFavicon('N');
+          await sleep(1000);
+          drawFavicon('');
+          await sleep(500);
+          drawFavicon('\u2588');
+          await sleep(1000);
+          drawFavicon('');
+          await sleep(500);
+        }
+        var end = Date.now() + 3000;
+        var i = 0;
+        while (Date.now() < end) {
+          drawFavicon(spinner[i % spinner.length]);
+          i++;
+          await sleep(20);
+        }
+      }
+    })();
+  };
+
+  // Preload the IBM VGA webfont, but start animating immediately in case it
+  // never resolves (e.g. blocked or not yet loaded). Later frames will use the
+  // correct glyph once the font is available.
+  if (document.fonts && document.fonts.load) {
+    try { document.fonts.load("16px 'IBM VGA'").then(start, start); } catch (e) { start(); }
+  } else {
+    start();
+  }
+}
+
+initAnimatedFavicon();
