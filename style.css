@@ -119,7 +119,7 @@ a:hover {
 .blog-header-banner {
   white-space: normal;
   text-align: left;
-  font-size: clamp(14px, 2vw, 24px);
+  font-size: clamp(6px, 1.4vw, 22px);
   max-width: 100%;
   color: #00ff00;
   margin-bottom: 15px;

@@ -1,0 +1,82 @@
+<!--
+ Copyright (c) 2025 Natsurii
+ 
+ This software is released under the MIT License.
+ https://opensource.org/licenses/MIT
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta
+    name="description"
+    content="Natsurii's Portfolio. About">
+  <title>Natsurii - About</title>
+  <link rel="icon" type="image/gif" href="assets/favicon.gif">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="ascii-container"></header>
+  <main class="ascii-container blog-list-container markdown-container">
+    <div id="post-content">
+      <div class="blog-header-banner">C:\ABOUT\INDEX.LOG</div>
+          <h2>Work</h2>
+      <h2><a href="https://www.advancedenergy.com/en-us/">Advanced Energy Industries, Inc.</a> &mdash; Onsite - Eastwood, Quezon City, PH</h2>
+      <p><strong>Firmware Engineer &mdash; 2024-08 - present</strong></p>
+<ul>
+              <li>Optimized firmware for 16-bit/32-bit MCUs and DSPs across diverse semiconductor and industrial applications to improve system reliability, delivering cleaner, more stable operation on every device.</li>
+              <li>Accelerated onboarding and cross-team knowledge transfer by documenting the theory of operation for 3 new technology blocks, giving design teams a clear reference for future work.</li>
+              <li>Diagnosed and resolved 2 complex hardware-firmware integration faults using JTAG and GDB debugging, working closely with the hardware engineering team to isolate root causes across both domains.</li>
+              <li>Enabled earlier hardware validation by developing an internal hardware tool that verifies firmware functions at the signal level, cutting the wait for hardware-level testing by 12 weeks.</li>
+              <li>Streamlined firmware validation by automating functional test strategies with Python scripts, replacing slow manual checks with repeatable, reliable runs.</li>
+              <li>Strengthened release confidence by contributing to CI/CD pipeline improvements for firmware builds and testing, making deployments more consistent and dependable across key projects.</li>
+            </ul>
+          <hr class="retro-hr">
+
+          <h2>Skills</h2>
+      <h3>Programming</h3>
+      <p>C | C++ | Python | Assembly</p>
+      <h3>CI/CD</h3>
+      <p>Bitbucket Pipelines | Github Actions | JFrog Artifactory</p>
+      <h3>Frameworks</h3>
+      <p>STM32Cube | Arduino Core | libopencm3 | FreeRTOS | Zephyr | CMSIS</p>
+      <h3>Software Tools</h3>
+      <p>Git | Jira | Linux | Docker | KiCAD | GCC/LLVM Compilers</p>
+      <h3>MCUs &amp; MPUs</h3>
+      <p>STM32 | XMC4000 | Raspberry Pi | ESP32</p>
+      <h3>Communications</h3>
+      <p>UART | RS232 | RS485 | I2C | PMBUS | SMBUS | CAN | SPI | Ethernet | EtherCAT | USB</p>
+      <h3>Equipments</h3>
+      <p>JLink Debugger | Digital Multimeter | Oscilloscope | Logic Analyzer | AC Source | DC Source | Soldering</p>
+          <hr class="retro-hr">
+
+          <h2>Education</h2>
+      <h3><a href="https://plm.edu.ph/">Pamantasan ng Lungsod ng Maynila</a> &mdash; Bachelor of Science, Computer Engineering, 2020-08 - 2024-09, Manila, PH</h3>
+      <p>Dean's List</p>
+      <p>Software Design, Embedded Systems, Logic Circuits and Design, Data Structures &amp; Algorithms, Computer Architecture and Organization, Digital Signal Processing</p>
+<ul>
+              <li><em>Thesis</em>: FoodieVision: A YOLO-Based Portable Device for Grocery Food Identification and Audio Feedback for the Visually Impaired</li>
+              <li><em>Activities</em>: Intercollegiate Quiz Bee Competitor, Robotics</li>
+              <li><em>Organizations</em>: Google Developers Club, Microsoft Student Community, AWS Cloud Club, Instititute of Computer Engineers of Philippines</li>
+            </ul>
+          <hr class="retro-hr">
+
+    </div>
+  </main>
+  <footer class="ascii-container"></footer>
+
+  <script>
+  $(document).ready(function () {
+    asciiToHTML('./components/header.utf8ans', 'header', 2, 5, function() {
+        addHyperlinkToText('header', '<home>', 'index.html');
+        addHyperlinkToText('header', '<about>', 'about.html');
+        addHyperlinkToText('header', '<blogs>', 'blogs.html');
+    });
+    asciiToHTML('./components/footer.utf8ans', 'footer', 2, 5);
+  });
+  </script>
+</body>
+</html>
