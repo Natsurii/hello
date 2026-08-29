@@ -42,7 +42,7 @@ html, body {
 /* Pure CSS overlay, applied globally across all pages via pseudo-elements. */
 
 /* Scanlines + subtle barrel/vignette */
-/* body::before {
+body::before {
   content: '';
   pointer-events: none;
   position: fixed;
@@ -68,10 +68,10 @@ html, body {
       rgba(0, 0, 0, 0.35) 100%
     );
   mix-blend-mode: multiply;
-} */
+}
 
 /* Chromatic glow tint (subtle green/blue phosphor feel) */
-/* body::after {
+body::after {
   content: '';
   pointer-events: none;
   position: fixed;
@@ -85,10 +85,10 @@ html, body {
       rgba(0, 0, 0, 0) 100%
     );
   mix-blend-mode: screen;
-} */
+}
 
 /* Slow drifting scan bar for authentic CRT refresh feel */
-/* .crt-scanbar {
+.crt-scanbar {
   pointer-events: none;
   position: fixed;
   left: 0;
@@ -102,16 +102,16 @@ html, body {
     rgba(0, 0, 0, 0) 100%
   );
   animation: crt-drift 9s linear infinite;
-} */
+}
 
-/* @keyframes crt-drift {
+@keyframes crt-drift {
   0%   { top: -15%; opacity: 1; }
   50%  { top: 110%; opacity: 0.4; }
   100% { top: -15%; opacity: 1; }
-} */
+}
 
 /* Gentle phosphor flicker that brightens/darkens the whole screen very subtly */
-/* @keyframes crt-flicker {
+@keyframes crt-flicker {
   0%   { opacity: 1; }
   3%   { opacity: 0.96; }
   6%   { opacity: 1; }
@@ -119,15 +119,15 @@ html, body {
   55%  { opacity: 1; }
   71%  { opacity: 0.97; }
   100% { opacity: 1; }
-} */
+}
 
-/* body::before,
+body::before,
 body::after {
   animation: crt-flicker 8s infinite;
-} */
+}
 
 /* Respect users who prefer reduced motion: soften the animations */
-/* @media (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion: reduce) {
   .crt-scanbar {
     animation: none;
     display: none;
@@ -136,7 +136,7 @@ body::after {
   body::after {
     animation: none;
   }
-} */
+}
 
 /* Shared styles for ASCII art in semantic containers */
 .ascii-container {
@@ -211,15 +211,23 @@ a:hover {
   max-width: 900px;
   margin: 0 auto;
   padding: 5px 10px;
-  line-height: 1.4;
+  line-height: 1.6;
   overflow-wrap: break-word;
   word-wrap: break-word;
+  font-size: 1.05rem;
+}
+
+@media screen and (max-width: 800px) {
+  .blog-list-container,
+  .markdown-container {
+    font-size: 1rem;
+  }
 }
 
 .blog-header-banner {
   white-space: normal;
   text-align: left;
-  font-size: clamp(6px, 1.4vw, 22px);
+  font-size: 1.3em;
   max-width: 100%;
   color: #00ff00;
   margin-bottom: 15px;
