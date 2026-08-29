@@ -110,7 +110,7 @@ function parseMarkdown(markdown) {
     .replace(/>/g, '&gt;');
 
   // Code blocks ```lang ... ```
-  html = html.replace(/```([a-z]*)\n([\s\S]*?)\n```/g, '<pre><code class="language-$1">$2</code></pre>');
+  html = html.replace(/```([a-z]*)\n([\s\S]*?)\n```/g, '<pre class="language-$1"><code class="language-$1">$2</code></pre>');
 
   // Inline code `code`
   html = html.replace(/`([^`]+)`/g, '<code>$1</code>');

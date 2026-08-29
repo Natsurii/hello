@@ -118,13 +118,25 @@ a:hover {
 
 .blog-header-banner {
   white-space: normal;
-  text-align: center;
+  text-align: left;
   font-size: clamp(14px, 2vw, 24px);
   max-width: 100%;
-  color: #00ffff;
+  color: #00ff00;
   margin-bottom: 15px;
   font-weight: bold;
   line-height: 1.2;
+}
+
+.blog-header-banner::after {
+  content: '▊';
+  margin-left: 4px;
+  color: #00ff00;
+  animation: cursor-blink 1s infinite;
+}
+
+@keyframes cursor-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
 }
 
 .blog-post-card {
@@ -144,7 +156,7 @@ a:hover {
 }
 
 .blog-post-title a:hover {
-  color: #00ffff;
+  color: #00ff00;
 }
 
 .blog-post-desc {
@@ -162,7 +174,7 @@ a:hover {
 #post-content h1,
 #post-content h2,
 #post-content h3 {
-  color: #00ffff;
+  color: #00ff00;
   margin-top: 5px;
   margin-bottom: 8px;
 }
@@ -197,7 +209,7 @@ a:hover {
 }
 
 #post-content blockquote {
-  border-left: 3px solid #00f;
+  border-left: 3px solid #00ff00;
   padding-left: 10px;
   margin: 10px 0;
   color: #aaa;
@@ -211,19 +223,14 @@ a:hover {
   overflow-x: auto;
   margin: 10px 0;
   border-radius: 4px;
+  font-family: 'IBM VGA', monospace;
 }
 
 #post-content code {
   font-family: 'IBM VGA', monospace;
   background-color: #111;
   padding: 2px 4px;
-  color: #00ffff;
-}
-
-#post-content pre code {
-  background-color: transparent;
-  padding: 0;
-  color: lightgray;
+  color: #00ff00;
 }
 
 .retro-blog-img {
@@ -243,7 +250,7 @@ a:hover {
 }
 
 .ascii-box-line {
-  color: #00ffff;
+  color: #00ff00;
   font-size: 0.85em;
   white-space: pre;
   overflow-x: hidden;
@@ -255,8 +262,8 @@ a:hover {
 .retro-img-inner {
   padding: 0;
   background-color: #0d0d0d;
-  border-left: 1px solid #00ffff;
-  border-right: 1px solid #00ffff;
+  border-left: 1px solid #00ff00;
+  border-right: 1px solid #00ff00;
   line-height: 0;
 }
 
@@ -308,7 +315,7 @@ a:hover {
   .blog-header-banner {
     width: 100%;
     max-width: 100vw;
-    text-align: center;
+    text-align: left;
   }
 
   .ascii-box-line {

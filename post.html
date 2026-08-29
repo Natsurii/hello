@@ -14,8 +14,10 @@
     content="Natsurii's Portfolio. Blog Post">
   <title>Natsurii - Blog Post</title>
   <link rel="stylesheet" href="style.css">
-  <script src="./jquery-3.7.1.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
   <script src="script.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
 </head>
 <body>
   <header class="ascii-container"></header>
@@ -52,19 +54,46 @@
       return;
     }
 
-    // Fetch markdown file
+    // Validate slug structure: only lowercase letters, digits, and hyphens.
+    // Blocks path traversal (../), absolute paths (/), and URL tricks.
+    const SLUG_RE = /^[a-z0-9][a-z0-9-]{0,127}$/;
+    if (!SLUG_RE.test(slug)) {
+      $('#post-loading').text('Error: Invalid post identifier.');
+      return;
+    }
+
+    // Whitelist slug against the manifest before fetching any markdown.
+    $.getJSON('./content/blogs/manifest.json')
+      .done(function(posts) {
+        const known = Array.isArray(posts)
+          ? posts.some(p => p && p.slug === slug)
+          : false;
+        if (!known) {
+          $('#post-loading').text('Error: Blog post not found.');
+          return;
+        }
+        fetchPost(slug);
+      })
+      .fail(function() {
+        $('#post-loading').text('Error: Could not load blog manifest.');
+      });
+  });
+
+  function fetchPost(slug) {
+    // Fetch markdown file (slug is already validated + whitelisted)
     $.get(`./content/blogs/${slug}.md`)
       .done(function(markdownText) {
         $('#post-loading').hide();
         const htmlContent = parseMarkdown(markdownText);
         $('#post-content').html(htmlContent);
+        Prism.highlightAll();
         fitAsciiLines();
         $('#post-content img').on('load', fitAsciiLines);
       })
       .fail(function() {
         $('#post-loading').text('Error: Blog post not found.');
       });
-  });
+  }
   </script>
 </body>
 </html>

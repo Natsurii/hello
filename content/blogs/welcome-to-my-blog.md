@@ -14,7 +14,7 @@ This site is built entirely with **vanilla HTML, CSS, and JavaScript**, featurin
 
 Here is a preview of the retro design aesthetic:
 
-![Retro Design Preview](/designs/indexwosauce.png)
+![oaiaiaiai](/content/blogs/images/welcome-to-my-blog/oia-uia.gif)
 
 Here is some sample code to celebrate:
 
@@ -25,4 +25,4 @@ function greet() {
 greet();
 ```
 
-Stay tuned for more posts about retro computing, programming, and web development!
+Stay tuned for more posts!
