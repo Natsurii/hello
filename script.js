@@ -254,4 +254,21 @@ function initAnimatedFavicon() {
   }
 }
 
+// CRT filter: inject a slowly drifting scan bar overlay (pure CSS handles the
+// scanlines, vignette, and flicker via body::before / body::after). This element
+// is created here so the CRT effect applies across every page without per-page markup.
+function initCrtScanbar() {
+  // Only add if it isn't already present.
+  if (document.querySelector('.crt-scanbar')) return;
+  var bar = document.createElement('div');
+  bar.className = 'crt-scanbar';
+  document.body.appendChild(bar);
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initCrtScanbar);
+} else {
+  initCrtScanbar();
+}
+
 initAnimatedFavicon();
