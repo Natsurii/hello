@@ -1,0 +1,71 @@
+<!--
+ Copyright (c) 2025 Natsurii
+ 
+ This software is released under the MIT License.
+ https://opensource.org/licenses/MIT
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta
+    name="description"
+    content="Natsurii's Portfolio. Blog List">
+  <title>Natsurii - Blogs</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="./jquery-3.7.1.min.js"></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="ascii-container"></header>
+  <main class="ascii-container blog-list-container">
+    <div class="blog-header-banner">
+      C:\BLOGS\INDEX.LOG
+    </div>
+    <div id="blog-posts-loading">Loading blog entries...</div>
+    <div id="blog-posts-list"></div>
+  </main>
+  <footer class="ascii-container"></footer>
+
+  <script>
+  $(document).ready(function () {
+    // Load header and footer
+    asciiToHTML('./components/header.utf8ans', 'header', 2, 5, function() {
+        addHyperlinkToText('header', '<home>', 'index.html');
+        addHyperlinkToText('header', '<about>', 'about.html');
+        addHyperlinkToText('header', '<blogs>', 'blogs.html');
+    });
+    asciiToHTML('./components/footer.utf8ans', 'footer', 2, 5);
+
+    // Fetch blog manifest and render list
+    $.getJSON('./content/blogs/manifest.json')
+      .done(function(posts) {
+        $('#blog-posts-loading').hide();
+        const listContainer = $('#blog-posts-list');
+        if (!posts || posts.length === 0) {
+          listContainer.html('<p>No blog posts found.</p>');
+          return;
+        }
+
+        let html = '';
+        posts.forEach(post => {
+          html += `
+            <div class="blog-post-card">
+              <div class="blog-post-date">[${post.date}]</div>
+              <h2 class="blog-post-title"><a href="post.html?slug=${post.slug}">${post.title}</a></h2>
+              <p class="blog-post-desc">${post.description}</p>
+              <div class="blog-post-divider"></div>
+            </div>
+          `;
+        });
+        listContainer.html(html);
+        fitAsciiLines();
+      })
+      .fail(function() {
+        $('#blog-posts-loading').text('Error: Could not load blog manifest.');
+      });
+  });
+  </script>
+</body>
+</html>

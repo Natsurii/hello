@@ -1,0 +1,70 @@
+<!--
+ Copyright (c) 2025 Natsurii
+ 
+ This software is released under the MIT License.
+ https://opensource.org/licenses/MIT
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta
+    name="description"
+    content="Natsurii's Portfolio. Blog Post">
+  <title>Natsurii - Blog Post</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="./jquery-3.7.1.min.js"></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="ascii-container"></header>
+  <main class="ascii-container markdown-container">
+    <div class="blog-nav-top">
+      <a href="blogs.html">&lt;-- [back to blogs]</a>
+      <hr class="retro-hr">
+    </div>
+    <div id="post-loading">Loading post content...</div>
+    <div id="post-content"></div>
+    <div class="blog-nav-bottom">
+      <hr class="retro-hr">
+      <a href="blogs.html">&lt;-- [back to blogs]</a>
+    </div>
+  </main>
+  <footer class="ascii-container"></footer>
+
+  <script>
+  $(document).ready(function () {
+    // Load header and footer
+    asciiToHTML('./components/header.utf8ans', 'header', 2, 5, function() {
+        addHyperlinkToText('header', '<home>', 'index.html');
+        addHyperlinkToText('header', '<about>', 'about.html');
+        addHyperlinkToText('header', '<blogs>', 'blogs.html');
+    });
+    asciiToHTML('./components/footer.utf8ans', 'footer', 2, 5);
+
+    // Get slug from query parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const slug = urlParams.get('slug');
+
+    if (!slug) {
+      $('#post-loading').text('Error: No blog post specified.');
+      return;
+    }
+
+    // Fetch markdown file
+    $.get(`./content/blogs/${slug}.md`)
+      .done(function(markdownText) {
+        $('#post-loading').hide();
+        const htmlContent = parseMarkdown(markdownText);
+        $('#post-content').html(htmlContent);
+        fitAsciiLines();
+        $('#post-content img').on('load', fitAsciiLines);
+      })
+      .fail(function() {
+        $('#post-loading').text('Error: Blog post not found.');
+      });
+  });
+  </script>
+</body>
+</html>

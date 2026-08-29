@@ -12,32 +12,44 @@
   margin: 0;
 }
 
+html {
+  /* Prevent mobile browsers from auto-boosting tiny ASCII text */
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+}
+
 html, body {
   margin: 0;
   padding: 0;
   background-color: #181818;
   color: lightgray;
   font-family: 'IBM VGA', monospace;
-  min-height: 100vh; /* Ensure at least the full viewport height */
-  width: 100vw; /* Full viewport width */
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100vw;
   display: flex;
-  flex-direction: column; /* Stack elements vertically */
-  justify-content: center; /* Center vertically */
-  align-items: center; /* Center horizontally */
+  flex-direction: column;
+  align-items: center;     /* center content horizontally */
+  justify-content: flex-start; /* content grows from top, no forced height fit */
   background: radial-gradient(circle, #101010, #000000 60%) no-repeat;
   background-size: cover;
   position: relative;
-  overflow-y: auto; /* Enable vertical scrolling */
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 /* Shared styles for ASCII art in semantic containers */
 .ascii-container {
-  text-shadow: 0 0 2px lightgray, 0 0 1px lightgray, 0 0 1px #00f, 0 0 5px #00f; /* Glowing effect */
-  overflow: auto;
-  white-space: pre-wrap;
+  text-shadow: 0 0 2px lightgray, 0 0 1px lightgray, 0 0 1px #00f, 0 0 5px #00f;
+  overflow-x: hidden;
+  white-space: pre;
   display: block;
-  opacity: 0; /* Initially hidden */
-  animation: fadeIn 1s forwards; /* Fade-in effect */
+  width: fit-content;
+  max-width: 100%;
+  box-sizing: border-box;
+  opacity: 0;
+  animation: fadeIn 1s forwards;
+  touch-action: pan-y;
 }
 
 /* Fade-in animation */
@@ -61,15 +73,19 @@ html, body {
 }
 
 /* Responsive font size adjustments */
-@media (max-width: 800px) {
+.ascii-container {
+  font-size: clamp(6px, 1.4vw, 22px);
+}
+
+@media screen and (max-width: 800px) {
   .ascii-container {
     font-size: calc(6px + 0.2vw);
   }
 }
 
-@media (min-width: 1200px) {
+@media screen and (min-width: 1200px) {
   .ascii-container {
-    font-size: calc(16px + 0.7vw); /* Increase font size for larger screens */
+    font-size: calc(16px + 0.7vw);
   }
 }
 
@@ -77,12 +93,226 @@ html, body {
 a {
   color: inherit; /* Remove the default link color and inherit text color */
   text-decoration: none; /* Remove underline */
-  font-weight: normal; /* Ensure normal font weight */
-  transition: text-shadow 0.3s ease, filter 0.3s ease; /* Smooth transition for text shadow and glow */
+  font-weight: normal; /* Ensure normal link weight */
+  transition: text-shadow 0.3s ease, filter 0.3s ease; /* Smooth transition for glow */
 }
 
 /* Hover state for anchor tags */
 a:hover {
-  text-shadow: 0 0 10px #00f, 0 0 20px #00f, 0 0 30px #00f, 0 0 40px #00f; /* Increased intensity of the glow */
-  filter: brightness(1.3); /* Slight increase in brightness on hover */
+  text-shadow: 0 0 10px #00f, 0 0 20px #00f, 0 0 30px #00f, 0 0 40px #00f;
+  filter: brightness(1.3);
+}
+
+/* Blog & Markdown Styling */
+.blog-list-container,
+.markdown-container {
+  white-space: normal !important;
+  width: 95%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 5px 10px;
+  line-height: 1.4;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+.blog-header-banner {
+  white-space: normal;
+  text-align: center;
+  font-size: clamp(14px, 2vw, 24px);
+  max-width: 100%;
+  color: #00ffff;
+  margin-bottom: 15px;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+.blog-post-card {
+  margin-bottom: 15px;
+}
+
+.blog-post-date {
+  color: #888;
+  font-size: 0.85em;
+  margin-bottom: 2px;
+}
+
+.blog-post-title a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.1em;
+}
+
+.blog-post-title a:hover {
+  color: #00ffff;
+}
+
+.blog-post-desc {
+  margin-top: 4px;
+  color: lightgray;
+  font-size: 0.95em;
+}
+
+.blog-post-divider {
+  margin-top: 10px;
+  color: #444;
+}
+
+/* Markdown Rendered Elements */
+#post-content h1,
+#post-content h2,
+#post-content h3 {
+  color: #00ffff;
+  margin-top: 5px;
+  margin-bottom: 8px;
+}
+
+#post-content h1 {
+  font-size: 1.5em;
+  border-bottom: 1px dashed #444;
+  padding-bottom: 4px;
+}
+
+#post-content h2 {
+  font-size: 1.25em;
+}
+
+#post-content h3 {
+  font-size: 1.05em;
+}
+
+#post-content p {
+  margin-bottom: 10px;
+  color: lightgray;
+}
+
+#post-content ul,
+#post-content ol {
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+
+#post-content li {
+  margin-bottom: 3px;
+}
+
+#post-content blockquote {
+  border-left: 3px solid #00f;
+  padding-left: 10px;
+  margin: 10px 0;
+  color: #aaa;
+  font-style: italic;
+}
+
+#post-content pre {
+  background-color: #0a0a0a;
+  border: 1px solid #333;
+  padding: 10px;
+  overflow-x: auto;
+  margin: 10px 0;
+  border-radius: 4px;
+}
+
+#post-content code {
+  font-family: 'IBM VGA', monospace;
+  background-color: #111;
+  padding: 2px 4px;
+  color: #00ffff;
+}
+
+#post-content pre code {
+  background-color: transparent;
+  padding: 0;
+  color: lightgray;
+}
+
+.retro-blog-img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  filter: contrast(1.1) brightness(0.95);
+  vertical-align: bottom;
+}
+
+.retro-img-wrapper {
+  margin: 15px 0;
+  font-family: 'IBM VGA', monospace;
+  display: flex;
+  flex-direction: column;
+}
+
+.ascii-box-line {
+  color: #00ffff;
+  font-size: 0.85em;
+  white-space: pre;
+  overflow-x: hidden;
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+}
+
+.retro-img-inner {
+  padding: 0;
+  background-color: #0d0d0d;
+  border-left: 1px solid #00ffff;
+  border-right: 1px solid #00ffff;
+  line-height: 0;
+}
+
+.retro-img-caption {
+  margin-top: 5px;
+  color: #888;
+  font-size: 0.9em;
+}
+
+.retro-hr {
+  border: none;
+  border-top: 1px dashed #444;
+  margin: 10px 0;
+}
+
+.blog-nav-top {
+  margin: 2px 0;
+}
+
+.blog-nav-bottom {
+  margin: 8px 0;
+}
+
+/* Mobile: keep everything inside the viewport width */
+@media screen and (max-width: 480px) {
+  html, body {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  .ascii-container {
+    font-size: clamp(7px, calc(100vw / 50), 11px);
+    width: fit-content;
+    max-width: 100vw;
+    padding: 0 4px;
+    text-align: left;
+  }
+
+  .blog-list-container,
+  .markdown-container {
+    width: 100%;
+    max-width: 100vw;
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  .blog-header-banner {
+    width: 100%;
+    max-width: 100vw;
+    text-align: center;
+  }
+
+  .ascii-box-line {
+    font-size: clamp(3px, calc(100vw / 75), 8px);
+    overflow-x: hidden;
+  }
 }

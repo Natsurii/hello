@@ -1,0 +1,14 @@
+[
+  {
+    "slug": "welcome-to-my-blog",
+    "title": "Welcome to My Retro Terminal Blog",
+    "date": "2026-03-30",
+    "description": "An introduction to my static Markdown blog rendered via vanilla JavaScript and IBM VGA aesthetics."
+  },
+  {
+    "slug": "building-static-sites",
+    "title": "Why Vanilla JS and Markdown Rock",
+    "date": "2026-03-28",
+    "description": "Exploring the simplicity and speed of zero-dependency static site generation."
+  }
+]
