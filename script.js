@@ -268,7 +268,7 @@ function initCrtScanbar() {
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', initCrtScanbar);
 } else {
-  initCrtScanbar();
+  // initCrtScanbar();
 }
 
 initAnimatedFavicon();
