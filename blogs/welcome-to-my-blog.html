@@ -12,7 +12,7 @@
   <meta name="description" content="An introduction to my static Markdown blog rendered via vanilla JavaScript and IBM VGA aesthetics.">
   <title>Natsurii - Welcome to My Retro Terminal Blog</title>
   
-  <link rel="icon" type="image/gif" href="assets/favicon.gif">
+  <link rel="icon" type="image/gif" href="../assets/favicon.gif">
   
   <!-- Open Graph / Social SEO -->
   <meta property="og:title" content="Welcome to My Retro Terminal Blog">
@@ -35,38 +35,38 @@
   }
   </script>
 
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="../style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-okaidia.min.css">
   <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
-  <script src="script.js" defer></script>
+  <script src="../script.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
 </head>
 <body>
   <header class="ascii-container"></header>
   <main class="ascii-container markdown-container">
     <div class="blog-nav-top">
-      <a href="blogs.html">&lt;-- [back to blogs]</a>
+      <a href="../blogs.html">&lt;-- [back to blogs]</a>
       <hr class="retro-hr">
     </div>
     <div id="post-loading">Loading post content...</div>
     <div id="post-content"></div>
     <div class="blog-nav-bottom">
       <hr class="retro-hr">
-      <a href="blogs.html">&lt;-- [back to blogs]</a>
+      <a href="../blogs.html">&lt;-- [back to blogs]</a>
     </div>
   </main>
   <footer class="ascii-container"></footer>
 
   <script>
   $(document).ready(function () {
-    asciiToHTML('./components/header.utf8ans', 'header', 2, 5, function() {
-        addHyperlinkToText('header', '<home>', 'index.html');
-        addHyperlinkToText('header', '<about>', 'about.html');
-        addHyperlinkToText('header', '<blogs>', 'blogs.html');
+    asciiToHTML('../components/header.utf8ans', 'header', 2, 5, function() {
+        addHyperlinkToText('header', '<home>', '../index.html');
+        addHyperlinkToText('header', '<about>', '../about.html');
+        addHyperlinkToText('header', '<blogs>', '../blogs.html');
     });
-    asciiToHTML('./components/footer.utf8ans', 'footer', 2, 5);
+    asciiToHTML('../components/footer.utf8ans', 'footer', 2, 5);
 
-    $.get('./content/blogs/welcome-to-my-blog.md')
+    $.get('../content/blogs/welcome-to-my-blog.md')
       .done(function(markdownText) {
         $('#post-loading').hide();
         const htmlContent = parseMarkdown(markdownText);

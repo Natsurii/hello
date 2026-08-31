@@ -3,6 +3,7 @@ import json
 import os
 
 DOMAIN = "https://natsurii.pages.dev"
+BLOGS_DIR = "blogs"
 
 TEMPLATE = """<!--
  Copyright (c) 2025 Natsurii
@@ -18,7 +19,7 @@ TEMPLATE = """<!--
   <meta name="description" content="{description}">
   <title>Natsurii - {title}</title>
   
-  <link rel="icon" type="image/gif" href="assets/favicon.gif">
+  <link rel="icon" type="image/gif" href="../assets/favicon.gif">
   
   <!-- Open Graph / Social SEO -->
   <meta property="og:title" content="{title}">
@@ -41,38 +42,38 @@ TEMPLATE = """<!--
   }}
   </script>
 
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="../style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-okaidia.min.css">
   <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
-  <script src="script.js" defer></script>
+  <script src="../script.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
 </head>
 <body>
   <header class="ascii-container"></header>
   <main class="ascii-container markdown-container">
     <div class="blog-nav-top">
-      <a href="blogs.html">&lt;-- [back to blogs]</a>
+      <a href="../blogs.html">&lt;-- [back to blogs]</a>
       <hr class="retro-hr">
     </div>
     <div id="post-loading">Loading post content...</div>
     <div id="post-content"></div>
     <div class="blog-nav-bottom">
       <hr class="retro-hr">
-      <a href="blogs.html">&lt;-- [back to blogs]</a>
+      <a href="../blogs.html">&lt;-- [back to blogs]</a>
     </div>
   </main>
   <footer class="ascii-container"></footer>
 
   <script>
   $(document).ready(function () {{
-    asciiToHTML('./components/header.utf8ans', 'header', 2, 5, function() {{
-        addHyperlinkToText('header', '<home>', 'index.html');
-        addHyperlinkToText('header', '<about>', 'about.html');
-        addHyperlinkToText('header', '<blogs>', 'blogs.html');
+    asciiToHTML('../components/header.utf8ans', 'header', 2, 5, function() {{
+        addHyperlinkToText('header', '<home>', '../index.html');
+        addHyperlinkToText('header', '<about>', '../about.html');
+        addHyperlinkToText('header', '<blogs>', '../blogs.html');
     }});
-    asciiToHTML('./components/footer.utf8ans', 'footer', 2, 5);
+    asciiToHTML('../components/footer.utf8ans', 'footer', 2, 5);
 
-    $.get('./content/blogs/{slug}.md')
+    $.get('../content/blogs/{slug}.md')
       .done(function(markdownText) {{
         $('#post-loading').hide();
         const htmlContent = parseMarkdown(markdownText);
@@ -96,6 +97,8 @@ def main():
         print(f"Error: {manifest_path} not found.")
         return
 
+    os.makedirs(BLOGS_DIR, exist_ok=True)
+
     with open(manifest_path, "r", encoding="utf-8") as f:
         posts = json.load(f)
 
@@ -117,13 +120,13 @@ def main():
             date=date
         )
 
-        output_file = f"{slug}.html"
+        output_file = os.path.join(BLOGS_DIR, f"{slug}.html")
         with open(output_file, "w", encoding="utf-8") as out:
             out.write(html_content)
         print(f"Generated: {output_file}")
 
         sitemap_urls.append(
-            f"  <url>\n    <loc>{DOMAIN}/{slug}.html</loc>\n    <lastmod>{date}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.7</priority>\n  </url>"
+            f"  <url>\n    <loc>{DOMAIN}/{BLOGS_DIR}/{slug}.html</loc>\n    <lastmod>{date}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.7</priority>\n  </url>"
         )
 
     sitemap_xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + \
