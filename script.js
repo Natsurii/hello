@@ -272,3 +272,67 @@ if (document.readyState === 'loading') {
 }
 
 initAnimatedFavicon();
+
+// ============ Light / Dark theme engine ============
+// Default is dark (the CRT look). Choice persists in localStorage. The
+// anti-flash inline <head> snippet already sets [data-theme] before paint;
+// here we sync the Prism stylesheet swap and mount the floating switch.
+var THEME_KEY = 'natsurii-theme';
+
+function getTheme() {
+  var t = 'dark';
+  try { t = localStorage.getItem(THEME_KEY) || 'dark'; } catch (e) {}
+  return t === 'light' ? 'light' : 'dark';
+}
+
+function syncSwitch(theme) {
+  var sw = document.querySelector('.theme-switch');
+  if (!sw) return;
+  sw.setAttribute('data-state', theme);
+  sw.setAttribute('aria-checked', theme === 'light' ? 'true' : 'false');
+}
+
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  try { localStorage.setItem(THEME_KEY, theme); } catch (e) {}
+
+  // Swap the Prism syntax theme (present only on code-bearing pages).
+  var darkLink = document.getElementById('prism-dark');
+  var lightLink = document.getElementById('prism-light');
+  if (darkLink) darkLink.disabled = (theme === 'light');
+  if (lightLink) lightLink.disabled = (theme !== 'light');
+
+  syncSwitch(theme);
+}
+
+function mountThemeSwitch() {
+  if (document.querySelector('.theme-switch')) return;
+  var theme = getTheme();
+  var btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'theme-switch';
+  btn.setAttribute('data-state', theme);
+  btn.setAttribute('role', 'switch');
+  btn.setAttribute('aria-checked', theme === 'light' ? 'true' : 'false');
+  btn.setAttribute('aria-label', 'Toggle light or dark theme');
+  btn.title = 'Toggle light / dark';
+  btn.innerHTML =
+    '<span class="sw-opt sw-moon"><span class="crescent"></span></span>' +
+    '<span class="sw-opt sw-sun">\u263C</span>' +
+    '<span class="sw-thumb"></span>';
+  btn.addEventListener('click', function () {
+    applyTheme(getTheme() === 'light' ? 'dark' : 'light');
+  });
+  document.body.appendChild(btn);
+}
+
+function initTheme() {
+  applyTheme(getTheme());
+  mountThemeSwitch();
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initTheme);
+} else {
+  initTheme();
+}

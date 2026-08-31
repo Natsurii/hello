@@ -14,6 +14,16 @@ TEMPLATE = """<!--
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script>
+    (function () {{
+      try {{
+        var t = localStorage.getItem('natsurii-theme') === 'light' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', t);
+      }} catch (e) {{
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }}
+    }})();
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="{description}">
@@ -43,7 +53,8 @@ TEMPLATE = """<!--
   </script>
 
   <link rel="stylesheet" href="../style.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-okaidia.min.css">
+  <link id="prism-dark" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-okaidia.min.css">
+  <link id="prism-light" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" disabled>
   <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
   <script src="../script.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>

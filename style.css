@@ -6,6 +6,58 @@
   font-style: normal;
 }
 
+/* ============ Theme Tokens ============ */
+/* Dark (CRT) is the default palette. Light (classic Mac 1-bit) overrides
+   the same custom properties under [data-theme="light"] on <html>. */
+:root {
+  color-scheme: dark;
+  --bg: #181818;
+  --bg-image: radial-gradient(circle, #101010, #000000 60%) no-repeat;
+  --text: lightgray;
+  --text-strong: #fff;
+  --accent: #00ff00;
+  --muted: #aaa;
+  --faint: #888;
+  --divider: #444;
+  --border: #333;
+  --code-bg: #0a0a0a;
+  --code-border: #333;
+  --inline-code-bg: #111;
+  --img-bg: #0d0d0d;
+  --glow: 0 0 2px lightgray, 0 0 1px lightgray, 0 0 1px #00f, 0 0 5px #00f;
+  --panel-bg: transparent;
+  --panel-border: transparent;
+  --panel-shadow: transparent;
+  /* theme switch (monochrome: no green, stays low-key) */
+  --switch-track: #0a0a0a;
+  --switch-thumb: #cccccc;
+  --switch-border: #7a7a7a;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f1ebcf;
+  --bg-image: #f1ebcf;
+  --text: #2a2410;
+  --text-strong: #1a1608;
+  --accent: #6b5e1e;
+  --muted: #4a4326;
+  --faint: #6a6138;
+  --divider: #b7ac7e;
+  --border: #8f8452;
+  --code-bg: #f7f2e0;
+  --code-border: #8f8452;
+  --inline-code-bg: #e4dcb8;
+  --img-bg: #f7f2e0;
+  --glow: none;
+  --panel-bg: #f7f2e0;
+  --panel-border: #6b5e1e;
+  --panel-shadow: rgba(90, 78, 30, 0.28);
+  --switch-track: #f7f2e0;
+  --switch-thumb: #6b5e1e;
+  --switch-border: #6b5e1e;
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -18,11 +70,18 @@ html {
   text-size-adjust: none;
 }
 
+/* Make body a stacking context so the light-mode dither (body::before at
+   z-index:-1) paints above the background but behind content, instead of
+   escaping underneath the body's own white background. */
+body {
+  isolation: isolate;
+}
+
 html, body {
   margin: 0;
   padding: 0;
-  background-color: #181818;
-  color: lightgray;
+  background-color: var(--bg);
+  color: var(--text);
   font-family: 'IBM VGA', monospace;
   min-height: 100vh;
   width: 100%;
@@ -31,11 +90,12 @@ html, body {
   flex-direction: column;
   align-items: center;     /* center content horizontally */
   justify-content: flex-start; /* content grows from top, no forced height fit */
-  background: radial-gradient(circle, #101010, #000000 60%) no-repeat;
+  background: var(--bg-image);
   background-size: cover;
   position: relative;
   overflow-x: hidden;
   overflow-y: auto;
+  transition: background-color .15s ease, color .15s ease;
 }
 
 /* ============ CRT Filter Overlay ============ */
@@ -140,7 +200,7 @@ body::after {
 
 /* Shared styles for ASCII art in semantic containers */
 .ascii-container {
-  text-shadow: 0 0 2px lightgray, 0 0 1px lightgray, 0 0 1px #00f, 0 0 5px #00f;
+  text-shadow: var(--glow);
   overflow-x: hidden;
   white-space: pre;
   display: block;
@@ -230,7 +290,7 @@ a:hover {
   text-align: left;
   font-size: 1.3em;
   max-width: 100%;
-  color: #00ff00;
+  color: var(--accent);
   margin-bottom: 15px;
   font-weight: bold;
   line-height: 1.2;
@@ -239,7 +299,7 @@ a:hover {
 .blog-header-banner::after {
   content: '▊';
   margin-left: 4px;
-  color: #00ff00;
+  color: var(--accent);
   animation: cursor-blink 1s infinite;
 }
 
@@ -253,44 +313,44 @@ a:hover {
 }
 
 .blog-post-date {
-  color: #888;
+  color: var(--faint);
   font-size: 0.85em;
   margin-bottom: 2px;
 }
 
 .blog-post-title a {
-  color: #fff;
+  color: var(--text-strong);
   text-decoration: none;
   font-size: 1.1em;
 }
 
 .blog-post-title a:hover {
-  color: #00ff00;
+  color: var(--accent);
 }
 
 .blog-post-desc {
   margin-top: 4px;
-  color: lightgray;
+  color: var(--text);
   font-size: 0.95em;
 }
 
 .blog-post-divider {
   margin-top: 10px;
-  color: #444;
+  color: var(--divider);
 }
 
 /* Markdown Rendered Elements */
 #post-content h1,
 #post-content h2,
 #post-content h3 {
-  color: #00ff00;
+  color: var(--accent);
   margin-top: 5px;
   margin-bottom: 8px;
 }
 
 #post-content h1 {
   font-size: 1.5em;
-  border-bottom: 1px dashed #444;
+  border-bottom: 1px dashed var(--divider);
   padding-bottom: 4px;
 }
 
@@ -304,7 +364,7 @@ a:hover {
 
 #post-content p {
   margin-bottom: 10px;
-  color: lightgray;
+  color: var(--text);
 }
 
 #post-content ul,
@@ -318,16 +378,16 @@ a:hover {
 }
 
 #post-content blockquote {
-  border-left: 3px solid #00ff00;
+  border-left: 3px solid var(--accent);
   padding-left: 10px;
   margin: 10px 0;
-  color: #aaa;
+  color: var(--muted);
   font-style: italic;
 }
 
 #post-content pre {
-  background-color: #0a0a0a;
-  border: 1px solid #333;
+  background-color: var(--code-bg);
+  border: 1px solid var(--code-border);
   padding: 10px;
   overflow-x: auto;
   margin: 10px 0;
@@ -337,9 +397,9 @@ a:hover {
 
 #post-content code {
   font-family: 'IBM VGA', monospace;
-  background-color: #111;
+  background-color: var(--inline-code-bg);
   padding: 2px 4px;
-  color: #00ff00;
+  color: var(--accent);
 }
 
 .retro-blog-img {
@@ -359,7 +419,7 @@ a:hover {
 }
 
 .ascii-box-line {
-  color: #00ff00;
+  color: var(--accent);
   font-size: 0.85em;
   white-space: pre;
   overflow-x: hidden;
@@ -370,21 +430,21 @@ a:hover {
 
 .retro-img-inner {
   padding: 0;
-  background-color: #0d0d0d;
-  border-left: 1px solid #00ff00;
-  border-right: 1px solid #00ff00;
+  background-color: var(--img-bg);
+  border-left: 1px solid var(--accent);
+  border-right: 1px solid var(--accent);
   line-height: 0;
 }
 
 .retro-img-caption {
   margin-top: 5px;
-  color: #888;
+  color: var(--faint);
   font-size: 0.9em;
 }
 
 .retro-hr {
   border: none;
-  border-top: 1px dashed #444;
+  border-top: 1px dashed var(--divider);
   margin: 10px 0;
 }
 
@@ -432,3 +492,130 @@ a:hover {
     overflow-x: hidden;
   }
 }
+
+/* ============ Light-mode (classic Mac) overrides ============ */
+/* Drop the chromatic tint + scan-bar, and replace the CRT scanline overlay
+   with a static 1-bit ordered dither (classic Mac desktop checker). */
+[data-theme="light"] body::after {
+  content: none;
+}
+
+/* Dither sits BEHIND content (z-index:-1) so ASCII + text stay crisp;
+   only the empty desktop shows it, white windows paint over it. */
+[data-theme="light"] body::before {
+  z-index: -1;
+  mix-blend-mode: normal;
+  animation: none;
+  background-color: var(--bg);
+  background-image:
+    linear-gradient(45deg, rgba(0, 0, 0, 0.16) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.16) 75%),
+    linear-gradient(45deg, rgba(0, 0, 0, 0.16) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.16) 75%);
+  background-size: 4px 4px;
+  background-position: 0 0, 2px 2px;
+}
+
+[data-theme="light"] .crt-scanbar {
+  display: none;
+}
+
+/* No phosphor bloom on links; Mac emphasis is an underline. */
+[data-theme="light"] a:hover {
+  text-shadow: none;
+  filter: none;
+  text-decoration: underline;
+}
+
+/* 1-bit selection (classic inverted highlight). */
+::selection {
+  background: #000;
+  color: #00ff00;
+}
+[data-theme="light"] ::selection {
+  background: #2a2410;
+  color: #f1ebcf;
+}
+
+/* Hairlines become solid on Mac instead of dashed. */
+[data-theme="light"] .retro-hr {
+  border-top-style: solid;
+}
+[data-theme="light"] #post-content h1 {
+  border-bottom-style: solid;
+}
+
+/* Content panels read as Mac windows: 1px frame + hard offset shadow. */
+[data-theme="light"] .markdown-container,
+[data-theme="light"] .blog-list-container {
+  background: var(--panel-bg);
+  border: 2px solid var(--panel-border);
+  box-shadow: 4px 4px 0 var(--panel-shadow);
+}
+
+/* ============ Theme switch (floating rectangle) ============ */
+.theme-switch {
+  position: fixed;
+  bottom: 12px;
+  right: 12px;
+  z-index: 10002;
+  display: block;
+  width: 4.4em;
+  height: 2.1em;
+  padding: 0;
+  font-size: 15px;
+  font-family: 'IBM VGA', monospace;
+  line-height: 1;
+  background: var(--switch-track);
+  border: 2px solid var(--switch-border);
+  border-radius: 0;
+  /* Halo ring in the page bg color separates the chip from busy ASCII art. */
+  box-shadow: 0 0 0 3px var(--bg), 3px 3px 0 rgba(0, 0, 0, 0.45);
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  user-select: none;
+}
+.theme-switch:focus-visible {
+  outline: 2px solid var(--switch-border);
+  outline-offset: 2px;
+}
+
+.theme-switch .sw-opt {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1em;
+  z-index: 1;
+}
+.theme-switch .sw-moon { left: 0; }
+.theme-switch .sw-sun { right: 0; }
+
+/* The crescent, drawn purely with CSS so it survives any font. */
+.theme-switch .crescent {
+  display: inline-block;
+  width: 0.9em;
+  height: 0.9em;
+  border-radius: 50%;
+  box-shadow: inset -0.38em 0 0 0 currentColor;
+}
+
+.theme-switch .sw-thumb {
+  position: absolute;
+  top: 1px;
+  bottom: 1px;
+  left: 1px;
+  width: calc(50% - 1px);
+  z-index: 0;
+  background: var(--switch-thumb);
+  transition: left 0.15s ease;
+}
+
+/* Icon color depends on which side the thumb is covering. */
+.theme-switch[data-state="dark"] .sw-moon { color: var(--switch-track); }
+.theme-switch[data-state="dark"] .sw-sun  { color: var(--switch-thumb); }
+.theme-switch[data-state="light"] .sw-thumb { left: 50%; }
+.theme-switch[data-state="light"] .sw-sun  { color: var(--switch-track); }
+.theme-switch[data-state="light"] .sw-moon { color: var(--switch-thumb); }
