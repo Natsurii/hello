@@ -53,8 +53,8 @@ body::before {
       to bottom,
       rgba(0, 0, 0, 0) 0px,
       rgba(0, 0, 0, 0) 2px,
-      rgba(0, 0, 0, 0.22) 3px,
-      rgba(0, 0, 0, 0.22) 4px
+      rgba(0, 0, 0, 0.1) 3px,
+      rgba(0, 0, 0, 0.1) 4px
     ),
     repeating-linear-gradient(
       to right,
@@ -65,7 +65,7 @@ body::before {
     radial-gradient(
       ellipse at center,
       rgba(0, 0, 0, 0) 55%,
-      rgba(0, 0, 0, 0.35) 100%
+      rgba(0, 0, 0, 0.22) 100%
     );
   mix-blend-mode: multiply;
 }
@@ -80,8 +80,8 @@ body::after {
   background:
     radial-gradient(
       ellipse at center,
-      rgba(0, 255, 0, 0.04) 0%,
-      rgba(0, 128, 255, 0.03) 60%,
+      rgba(0, 255, 0, 0.02) 0%,
+      rgba(0, 128, 255, 0.015) 60%,
       rgba(0, 0, 0, 0) 100%
     );
   mix-blend-mode: screen;
@@ -98,7 +98,7 @@ body::after {
   background: linear-gradient(
     to bottom,
     rgba(0, 0, 0, 0) 0%,
-    rgba(255, 255, 255, 0.05) 50%,
+    rgba(255, 255, 255, 0.03) 50%,
     rgba(0, 0, 0, 0) 100%
   );
   animation: crt-drift 9s linear infinite;
@@ -113,11 +113,11 @@ body::after {
 /* Gentle phosphor flicker that brightens/darkens the whole screen very subtly */
 @keyframes crt-flicker {
   0%   { opacity: 1; }
-  3%   { opacity: 0.96; }
+  3%   { opacity: 0.99; }
   6%   { opacity: 1; }
-  49%  { opacity: 0.98; }
+  49%  { opacity: 0.99; }
   55%  { opacity: 1; }
-  71%  { opacity: 0.97; }
+  71%  { opacity: 0.99; }
   100% { opacity: 1; }
 }
 
@@ -207,6 +207,7 @@ a:hover {
 .blog-list-container,
 .markdown-container {
   white-space: normal !important;
+  text-shadow: none;
   width: 95%;
   max-width: 900px;
   margin: 0 auto;
