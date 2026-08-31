@@ -32,10 +32,20 @@ TEMPLATE = """<!--
   <link rel="icon" type="image/gif" href="../assets/favicon.gif">
   
   <!-- Open Graph / Social SEO -->
+  <meta property="og:site_name" content="Natsurii">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="{DOMAIN}/blogs/{slug}.html">
   <meta property="og:title" content="{title}">
   <meta property="og:description" content="{description}">
-  <meta property="og:type" content="article">
+  <meta property="og:image" content="{DOMAIN}/assets/og/{slug}.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="{title}">
   <meta property="article:published_time" content="{date}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{title}">
+  <meta name="twitter:description" content="{description}">
+  <meta name="twitter:image" content="{DOMAIN}/assets/og/{slug}.png">
 
   <!-- Schema.org Structured Data (JSON-LD) -->
   <script type="application/ld+json">
@@ -128,7 +138,8 @@ def main():
             slug=slug,
             title=title,
             description=description,
-            date=date
+            date=date,
+            DOMAIN=DOMAIN,
         )
 
         output_file = os.path.join(BLOGS_DIR, f"{slug}.html")

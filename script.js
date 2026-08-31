@@ -307,6 +307,10 @@ function applyTheme(theme) {
 
 function mountThemeSwitch() {
   if (document.querySelector('.theme-switch')) return;
+  // Screenshot/embed capture (?embed=1): keep the chrome out of the card.
+  try {
+    if (new URLSearchParams(window.location.search).get('embed') === '1') return;
+  } catch (e) {}
   var theme = getTheme();
   var btn = document.createElement('button');
   btn.type = 'button';
