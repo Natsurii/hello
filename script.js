@@ -62,8 +62,10 @@ function addHyperlinkToText(elementSelector, textToFind, linkURL) {
   // Escape angle brackets
   const escapedText = textToFind.replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-  // Replace the target text with a hyperlink
-  const newContent = content.replace(escapedText, `<a href="${linkURL}">${escapedText}</a>`);
+  // Replace the target text with a hyperlink.
+  // tabindex="-1": the art container is aria-hidden, so its links must stay
+  // out of the tab order; keyboard users use <nav class="sr-nav"> instead.
+  const newContent = content.replace(escapedText, `<a href="${linkURL}" tabindex="-1">${escapedText}</a>`);
 
   // Update the element's content with the new HTML
   element.empty().append(newContent);
@@ -131,13 +133,18 @@ function parseMarkdown(markdown) {
   html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
   html = html.replace(/_(.*?)_/g, '<em>$1</em>');
 
-  // Images ![alt](url)
-  html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, function(match, alt, url) {
+  // Images ![alt](url), optional "WxH" title supplies intrinsic size (prevents CLS)
+  html = html.replace(/!\[([^\]]*)\]\((\S+)(?:\s+"([^"]*)")?\)/g, function(match, alt, url, dims) {
     let filename = url.split('/').pop();
+    let sizeAttrs = '';
+    if (dims) {
+      const size = dims.match(/^(\d{1,4})x(\d{1,4})$/i);
+      if (size) sizeAttrs = ' width="' + size[1] + '" height="' + size[2] + '"';
+    }
     return `
       <div class="retro-img-wrapper">
         <div class="retro-img-caption">&gt; file: ${filename} (${alt})</div>
-        <img src="${url}" alt="${alt}" class="retro-blog-img">
+        <img src="${url}" alt="${alt}" class="retro-blog-img" loading="lazy"${sizeAttrs}>
       </div>
     `;
   });
@@ -262,6 +269,7 @@ function initCrtScanbar() {
   if (document.querySelector('.crt-scanbar')) return;
   var bar = document.createElement('div');
   bar.className = 'crt-scanbar';
+  bar.setAttribute('aria-hidden', 'true');
   document.body.appendChild(bar);
 }
 

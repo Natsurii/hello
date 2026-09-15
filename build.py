@@ -70,20 +70,27 @@ TEMPLATE = """<!--
   <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
 </head>
 <body>
-  <header class="ascii-container"></header>
-  <main class="ascii-container markdown-container">
+  <a class="skip-link" href="#main">Skip to Content</a>
+  <nav class="sr-nav" aria-label="Main Navigation">
+    <a href="../index.html">Home</a>
+    <a href="../about.html">About</a>
+    <a href="../blogs.html">Blogs</a>
+  </nav>
+  <header class="ascii-container" aria-hidden="true"></header>
+  <main id="main" class="ascii-container markdown-container">
+    <h1 class="sr-only">{title}</h1>
     <div class="blog-nav-top">
       <a href="../blogs.html">&lt;-- [back to blogs]</a>
       <hr class="retro-hr">
     </div>
-    <div id="post-loading">Loading post content...</div>
-    <div id="post-content"></div>
+    <div id="post-loading" aria-live="polite">Loading post content…</div>
+    <div id="post-content" aria-live="polite"></div>
     <div class="blog-nav-bottom">
       <hr class="retro-hr">
       <a href="../blogs.html">&lt;-- [back to blogs]</a>
     </div>
   </main>
-  <footer class="ascii-container"></footer>
+  <footer class="ascii-container" aria-hidden="true"></footer>
 
   <script>
   $(document).ready(function () {{
@@ -104,7 +111,7 @@ TEMPLATE = """<!--
         $('#post-content img').on('load', fitAsciiLines);
       }})
       .fail(function() {{
-        $('#post-loading').text('Error: Blog post not found.');
+        $('#post-loading').text('Error: Blog post not found. Check the URL or return to the blog list.');
       }});
   }});
   </script>
