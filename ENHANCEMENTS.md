@@ -17,30 +17,31 @@ Line numbers below are anchors (file/section), not exact lines — re-locate whe
 - [x] build.py template updated; posts regenerated
 - [ ] Verify GIF alt text ("Photo from Oia" is a guess from filename — couldn't view image)
 
-## P1 — Performance
+## P1 — Performance — done (uncommitted)
 
-- [ ] `<link rel="preconnect" href="https://cdn.jsdelivr.net">` in all pages (index, blogs, about, 404 + build.py template)
-- [ ] `defer` jQuery + Prism (currently render-blocking in `<head>`; blog pages only for Prism)
-- [ ] `@font-face` IBM VGA: add `font-display: swap` + `<link rel="preload" as="font">`
-- [ ] Animated favicon (script.js `initAnimatedFavicon`): skip under `prefers-reduced-motion`, pause via `visibilitychange`, throttle spinner interval 20ms → 100ms+ (swaps a new `<link>` node each frame)
-- [ ] `content/blogs/images/welcome-to-my-blog/oia-uia.gif` (668K animated) → MP4/WebP or optimize
+- [x] `<link rel="preconnect" href="https://cdn.jsdelivr.net">` in all pages (index, blogs, about, 404 + build.py template)
+- [x] `defer` jQuery + Prism; inline body scripts moved into `DOMContentLoaded` listeners so they run after the deferred libs
+- [x] `@font-face` IBM VGA: `font-display: swap` + `<link rel="preload" as="font" type="font/ttf">` on every page
+- [x] Animated favicon: skipped under `prefers-reduced-motion` (static favicon stays), loop pauses on `visibilitychange`, spinner 20ms → 100ms
+- [x] `oia-uia.gif` (668K) → `oia-uia.webp` (12K, 2 frames, q80) via Pillow; blog md updated, gif removed
 
-## P2 — Motion & Layout
+## P2 — Motion & Layout — done (uncommitted)
 
-- [ ] `prefers-reduced-motion`: reveal ASCII instantly (skip typing in `typeTextInBatches`), disable `cursor-blink` + `fadeIn`
-- [ ] Animate `transform` not layout: `crt-drift` keyframes use `top`; `.sw-thumb` transitions `left`
-- [ ] `.theme-switch`: `env(safe-area-inset-*)` offsets (fixed bottom-right overlaps home indicator) + `touch-action: manipulation`
-- [ ] `fitAsciiLines`: add `ResizeObserver`/resize hook (dividers + image box caps mis-fit after rotation)
-- [ ] `.ascii-container` mobile: 6px font floor is too small; art clips via `overflow-x: hidden` + `white-space: pre` — scale instead of clip
+- [x] `prefers-reduced-motion`: art revealed instantly (skip typing in `typeTextInBatches`), `cursor-blink` + `fadeIn` disabled (shared `REDUCED_MOTION` flag; favicon already skipped)
+- [x] `crt-drift` → `translateY(-15vh ↔ 110vh)`; `.sw-thumb` → `transition: transform` + `translateX(100%)` (exactly the old `left: 50%` target)
+- [x] `.theme-switch`: `env(safe-area-inset-bottom/right)` in `calc()` + `touch-action: manipulation`
+- [x] `initFitObserver`: `ResizeObserver` on body + `resize` listener, rAF-coalesced, refits dividers/caps
+- [x] `fitArtFontSize`: pre art scales to `innerWidth / (maxCols * 0.56)`, capped at CSS size (no upscale); no floor — full art visible instead of clipped (art stores text via `data('ascii-text')` for refit on resize)
 
-## P3 — Copy & SEO
+## P3 — Copy & SEO — done (uncommitted)
 
-- [ ] `about.html`: typo "Instititute" → "Institute"; employer `<h2>` → `<h3>` (link-in-heading)
-- [ ] `404.html` og meta: "Page Not found. 404 site" → proper case + clearer description
-- [ ] `content/blogs/welcome-to-my-blog.md`: straight quotes in blockquote → curly “ ”
-- [ ] `<meta name="theme-color">` per theme (update in `applyTheme`, script.js)
-- [ ] sitemap.xml: add `about.html` (edit build.py `sitemap_urls` seed)
-- [ ] Blog dates: raw ISO `[2026-03-29]` → optional `Intl.DateTimeFormat` (conflicts with retro aesthetic — decide)
+- [x] `about.html`: "Instititute" → "Institute"; employer heading `<h2>` → `<h3>` (now under `Work`, matches the education entry pattern)
+- [x] `404.html` og/twitter/description meta → "Page not found. The page you are looking for does not exist or was moved."
+- [x] `welcome-to-my-blog.md` blockquote → curly “ ”
+- [x] `<meta name="theme-color">` created + synced in `applyTheme` (reads `--bg` computed value)
+- [x] sitemap.xml: `about.html` added (build.py seed), regenerated
+- [x] Blog dates: decided — keep retro `[2026-03-29]` display, wrapped in `<time datetime>` for semantics (no `Intl.DateTimeFormat`)
+- [x] Bonus: `parseMarkdown` blockquote regex fixed (`^> ` never matched — `>` is escaped to `&gt;` before that step, so blockquotes rendered as plain text)
 
 ## Notes
 
