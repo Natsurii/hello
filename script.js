@@ -9,20 +9,8 @@ function removeAnsiCodes(text) {
   return text.replace(ansiRegex, ''); // Remove them from the string
 }
 
-// Users who prefer reduced motion get the art instantly, no typing.
-var REDUCED_MOTION = false;
-try {
-  REDUCED_MOTION = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-} catch (e) {}
-
 // Function to type text in batches, ensuring it's compatible with CSP
 function typeTextInBatches(text, element, delay, batchSize, callback) {
-  if (REDUCED_MOTION) {
-    element.text(text);
-    element.css("opacity", 1);
-    if (callback) callback();
-    return;
-  }
   let index = 0;
   const typingInterval = function () {
       // Get the next batch of characters to add
@@ -52,12 +40,6 @@ function asciiToHTML(ascii, tag, delay = 50, batchsize = 50, callback) {
       .then(text => {
           // Clean the text by removing ANSI escape sequences
           const cleanedText = removeAnsiCodes(text);
-
-          // Remember the full text so the art can be refit on resize
-          $(tag).data('ascii-text', cleanedText);
-
-          // Scale the art to its container instead of clipping it
-          fitArtFontSize($(tag), cleanedText);
 
           // Initialize the #ascii-art div with initial empty text
           $(tag).text(''); // Clear the content
@@ -122,61 +104,6 @@ function fitAsciiLines() {
   });
 }
 
-// Scale a pre art container so its longest line fits the viewport: the art is
-// shrunk to fit instead of clipped, and never upscaled past the CSS size.
-// (parent().width() is circular here — fit-content parents shrink to their
-// own art — so the viewport is the stable bound.)
-function fitArtFontSize($el, text) {
-  var maxLen = 0;
-  var lines = text.split('\n');
-  for (var i = 0; i < lines.length; i++) {
-    if (lines[i].length > maxLen) maxLen = lines[i].length;
-  }
-  if (!maxLen) return;
-
-  // Read the CSS-driven size by briefly clearing any inline override.
-  var prevStyle = $el.attr('style');
-  $el.css('font-size', '');
-  var cssSize = parseFloat($el.css('font-size')) || 16;
-  if (prevStyle === undefined) $el.removeAttr('style');
-  else $el.attr('style', prevStyle);
-
-  var ratio = 0.56; // approximate IBM VGA glyph width / font-size
-  var fitSize = window.innerWidth / (maxLen * ratio);
-  $el.css('font-size', Math.min(cssSize, fitSize) + 'px');
-}
-
-// Refit ASCII dividers, image box caps, and pre art when the layout changes
-// (window resize, device rotation, browser zoom). Coalesced via rAF.
-function initFitObserver() {
-  var pending = false;
-  var run = function () {
-    fitAsciiLines();
-    $('.ascii-container').each(function () {
-      var text = $(this).data('ascii-text');
-      if (text != null) fitArtFontSize($(this), text);
-    });
-  };
-  var schedule = function () {
-    if (pending) return;
-    pending = true;
-    requestAnimationFrame(function () {
-      pending = false;
-      run();
-    });
-  };
-  if (typeof ResizeObserver !== 'undefined') {
-    new ResizeObserver(schedule).observe(document.body);
-  }
-  window.addEventListener('resize', schedule);
-}
-
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initFitObserver);
-} else {
-  initFitObserver();
-}
-
 // Simple Vanilla JS Markdown Parser
 function parseMarkdown(markdown) {
   let html = markdown
@@ -195,8 +122,8 @@ function parseMarkdown(markdown) {
   html = html.replace(/^## (.*$)/gm, '<h2>$1</h2>');
   html = html.replace(/^# (.*$)/gm, '<h1>$1</h1>');
 
-  // Blockquotes > text (literal ">" was escaped to "&gt;" up front)
-  html = html.replace(/^&gt; (.*$)/gm, '<blockquote>$1</blockquote>');
+  // Blockquotes > text
+  html = html.replace(/^\> (.*$)/gm, '<blockquote>$1</blockquote>');
 
   // Bold **text** or __text__
   html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
@@ -266,26 +193,9 @@ function parseMarkdown(markdown) {
 //     blank: 0.5s
 //     block: 1.0s
 //     blank: 0.5s
-//   Phase B - spinner (- \ | /), each 100ms, for 3.0s
-//
-// The loop pauses while the tab is hidden (visibilitychange) and is skipped
-// entirely under prefers-reduced-motion (the static favicon stays).
+//   Phase B - spinner (- \ | /), each 20ms, for 3.0s
 function initAnimatedFavicon() {
   var SIZE = 16;
-
-  if (REDUCED_MOTION) return;
-
-  var hidden = false;
-  var waiters = [];
-  function onVisibility() {
-    hidden = document.visibilityState === 'hidden';
-    if (!hidden) {
-      var w = waiters;
-      waiters = [];
-      for (var i = 0; i < w.length; i++) w[i]();
-    }
-  }
-  document.addEventListener('visibilitychange', onVisibility);
 
   function drawFavicon(text) {
     var canvas = document.createElement('canvas');
@@ -313,12 +223,7 @@ function initAnimatedFavicon() {
   }
 
   var sleep = function (ms) {
-    return new Promise(function (resolve) {
-      setTimeout(function () {
-        if (hidden) waiters.push(resolve);
-        else resolve();
-      }, ms);
-    });
+    return new Promise(function (resolve) { setTimeout(resolve, ms); });
   };
 
   var start = function () {
@@ -340,7 +245,7 @@ function initAnimatedFavicon() {
         while (Date.now() < end) {
           drawFavicon(spinner[i % spinner.length]);
           i++;
-          await sleep(100);
+          await sleep(20);
         }
       }
     })();
@@ -398,19 +303,6 @@ function syncSwitch(theme) {
 function applyTheme(theme) {
   document.documentElement.setAttribute('data-theme', theme);
   try { localStorage.setItem(THEME_KEY, theme); } catch (e) {}
-
-  // Keep the browser UI chrome (url bar) in sync with the page background.
-  var meta = document.querySelector('meta[name="theme-color"]');
-  if (!meta) {
-    meta = document.createElement('meta');
-    meta.setAttribute('name', 'theme-color');
-    (document.head || document.documentElement).appendChild(meta);
-  }
-  var bg = '#181818';
-  try {
-    bg = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim() || bg;
-  } catch (e) {}
-  meta.setAttribute('content', bg);
 
   // Swap the Prism syntax theme (present only on code-bearing pages).
   var darkLink = document.getElementById('prism-dark');

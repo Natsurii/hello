@@ -10,11 +10,11 @@ This site is built entirely with **vanilla HTML, CSS, and JavaScript**, featurin
 * **Markdown Support**: Posts are written in clean Markdown (`.md`) and converted to static HTML dynamically using a lightweight vanilla JS parser.
 * **Retro Vibe**: Custom font (`Px437_IBM_VGA_9x16.ttf`) and glowing ANSI art inspired headers.
 
-> “Simplicity is the ultimate sophistication.” — Leonardo da Vinci
+> "Simplicity is the ultimate sophistication." — Leonardo da Vinci
 
 Here is a preview of the retro design aesthetic:
 
-![Photo from Oia](/content/blogs/images/welcome-to-my-blog/oia-uia.webp "320x320")
+![Photo from Oia](/content/blogs/images/welcome-to-my-blog/oia-uia.gif "320x320")
 
 Here is some sample code to celebrate:
 

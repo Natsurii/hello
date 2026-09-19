@@ -22,8 +22,6 @@
   <meta name="description" content="Exploring the simplicity and speed of zero-dependency static site generation.">
   <title>Natsurii - Why Vanilla JS and Markdown Rock</title>
   
-  <link rel="preconnect" href="https://cdn.jsdelivr.net">
-  <link rel="preload" href="../assets/Px437_IBM_VGA_9x16.ttf" as="font" type="font/ttf">
   <link rel="icon" type="image/gif" href="../assets/favicon.gif">
   
   <!-- Open Graph / Social SEO -->
@@ -60,9 +58,9 @@
   <link rel="stylesheet" href="../style.css">
   <link id="prism-dark" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-okaidia.min.css">
   <link id="prism-light" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" disabled>
-  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
   <script src="../script.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to Content</a>
@@ -88,7 +86,7 @@
   <footer class="ascii-container" aria-hidden="true"></footer>
 
   <script>
-  document.addEventListener('DOMContentLoaded', function () {
+  $(document).ready(function () {
     asciiToHTML('../components/header.utf8ans', 'header', 2, 5, function() {
         addHyperlinkToText('header', '<home>', '../index.html');
         addHyperlinkToText('header', '<about>', '../about.html');

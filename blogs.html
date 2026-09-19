@@ -37,11 +37,9 @@
   <meta name="twitter:title" content="Natsurii - Blogs">
   <meta name="twitter:description" content="Natsurii's Portfolio. Blog List">
   <meta name="twitter:image" content="https://natsurii.pages.dev/assets/og/blogs.png">
-  <link rel="preconnect" href="https://cdn.jsdelivr.net">
-  <link rel="preload" href="assets/Px437_IBM_VGA_9x16.ttf" as="font" type="font/ttf">
   <link rel="icon" type="image/gif" href="assets/favicon.gif">
   <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
   <script src="script.js" defer></script>
 </head>
 <body>
@@ -63,7 +61,7 @@
   <footer class="ascii-container" aria-hidden="true"></footer>
 
   <script>
-  document.addEventListener('DOMContentLoaded', function () {
+  $(document).ready(function () {
     // Load header and footer
     asciiToHTML('./components/header.utf8ans', 'header', 2, 5, function() {
         addHyperlinkToText('header', '<home>', 'index.html');
@@ -86,7 +84,7 @@
         posts.forEach(post => {
           html += `
             <div class="blog-post-card">
-              <div class="blog-post-date"><time datetime="${post.date}">[${post.date}]</time></div>
+              <div class="blog-post-date">[${post.date}]</div>
               <h2 class="blog-post-title"><a href="blogs/${post.slug}.html">${post.title}</a></h2>
               <p class="blog-post-desc">${post.description}</p>
               <div class="blog-post-divider"></div>

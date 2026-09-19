@@ -4,7 +4,6 @@
   src: url('./assets/Px437_IBM_VGA_9x16.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
-  font-display: swap;
 }
 
 /* ============ Theme Tokens ============ */
@@ -152,7 +151,6 @@ body::after {
 .crt-scanbar {
   pointer-events: none;
   position: fixed;
-  top: 0;
   left: 0;
   right: 0;
   height: 90px;
@@ -166,11 +164,10 @@ body::after {
   animation: crt-drift 9s linear infinite;
 }
 
-/* Animate transform (compositor-only), not top (layout) */
 @keyframes crt-drift {
-  0%   { transform: translateY(-15vh); opacity: 1; }
-  50%  { transform: translateY(110vh); opacity: 0.4; }
-  100% { transform: translateY(-15vh); opacity: 1; }
+  0%   { top: -15%; opacity: 1; }
+  50%  { top: 110%; opacity: 0.4; }
+  100% { top: -15%; opacity: 1; }
 }
 
 /* Gentle phosphor flicker that brightens/darkens the whole screen very subtly */
@@ -189,8 +186,7 @@ body::after {
   animation: crt-flicker 8s infinite;
 }
 
-/* Respect users who prefer reduced motion: soften the animations
-   (the ASCII typing itself is skipped in script.js) */
+/* Respect users who prefer reduced motion: soften the animations */
 @media (prefers-reduced-motion: reduce) {
   .crt-scanbar {
     animation: none;
@@ -198,13 +194,6 @@ body::after {
   }
   body::before,
   body::after {
-    animation: none;
-  }
-  .ascii-container {
-    animation: none;
-    opacity: 1;
-  }
-  .blog-header-banner::after {
     animation: none;
   }
 }
@@ -659,8 +648,8 @@ a:hover {
 /* ============ Theme switch (floating rectangle) ============ */
 .theme-switch {
   position: fixed;
-  bottom: calc(12px + env(safe-area-inset-bottom, 0px));
-  right: calc(12px + env(safe-area-inset-right, 0px));
+  bottom: 12px;
+  right: 12px;
   z-index: 10002;
   display: block;
   width: 4.4em;
@@ -675,7 +664,6 @@ a:hover {
   /* Halo ring in the page bg color separates the chip from busy ASCII art. */
   box-shadow: 0 0 0 3px var(--bg), 3px 3px 0 rgba(0, 0, 0, 0.45);
   cursor: pointer;
-  touch-action: manipulation;
   -webkit-appearance: none;
   appearance: none;
   user-select: none;
@@ -716,12 +704,12 @@ a:hover {
   width: calc(50% - 1px);
   z-index: 0;
   background: var(--switch-thumb);
-  transition: transform 0.15s ease;
+  transition: left 0.15s ease;
 }
 
 /* Icon color depends on which side the thumb is covering. */
 .theme-switch[data-state="dark"] .sw-moon { color: var(--switch-track); }
 .theme-switch[data-state="dark"] .sw-sun  { color: var(--switch-thumb); }
-.theme-switch[data-state="light"] .sw-thumb { transform: translateX(100%); }
+.theme-switch[data-state="light"] .sw-thumb { left: 50%; }
 .theme-switch[data-state="light"] .sw-sun  { color: var(--switch-track); }
 .theme-switch[data-state="light"] .sw-moon { color: var(--switch-thumb); }

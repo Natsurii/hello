@@ -37,11 +37,9 @@
     <meta name="twitter:title" content="Natsurii - Portfolio">
     <meta name="twitter:description" content="Natsurii's Portfolio. Front Page">
     <meta name="twitter:image" content="https://natsurii.pages.dev/assets/og/index.png">
-    <link rel="preconnect" href="https://cdn.jsdelivr.net">
-    <link rel="preload" href="assets/Px437_IBM_VGA_9x16.ttf" as="font" type="font/ttf">
     <link rel="icon" type="image/gif" href="assets/favicon.gif">
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
     <script src="script.js" defer></script>
   </head>
   <body>
@@ -62,7 +60,7 @@
     <!-- This is just static site. -->
 
     <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    $(document).ready(function () {
       // Load all components
       asciiToHTML('./components/header.utf8ans', 'header', 2, 5, function() {
           // Add hyperlink after the header ASCII art has been typed
