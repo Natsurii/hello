@@ -23,7 +23,7 @@ Line numbers below are anchors (file/section), not exact lines — re-locate whe
 - [x] `defer` jQuery + Prism; inline body scripts moved into `DOMContentLoaded` listeners so they run after the deferred libs
 - [x] `@font-face` IBM VGA: `font-display: swap` + `<link rel="preload" as="font" type="font/ttf">` on every page
 - [x] Animated favicon: skipped under `prefers-reduced-motion` (static favicon stays), loop pauses on `visibilitychange`, spinner 20ms → 100ms
-- [x] `oia-uia.gif` (668K) → `oia-uia.webp` (12K, 2 frames, q80) via Pillow; blog md updated, gif removed
+- [x] `oia-uia.gif` (668K): **kept as GIF** — first converted to animated WebP (12K) but it rendered broken (Firefox has no animated-WebP support); P0's alt + `320x320` sizing already handles CLS
 
 ## P2 — Motion & Layout — done (uncommitted)
 
@@ -31,7 +31,7 @@ Line numbers below are anchors (file/section), not exact lines — re-locate whe
 - [x] `crt-drift` → `translateY(-15vh ↔ 110vh)`; `.sw-thumb` → `transition: transform` + `translateX(100%)` (exactly the old `left: 50%` target)
 - [x] `.theme-switch`: `env(safe-area-inset-bottom/right)` in `calc()` + `touch-action: manipulation`
 - [x] `initFitObserver`: `ResizeObserver` on body + `resize` listener, rAF-coalesced, refits dividers/caps
-- [x] `fitArtFontSize`: pre art scales to `innerWidth / (maxCols * 0.56)`, capped at CSS size (no upscale); no floor — full art visible instead of clipped (art stores text via `data('ascii-text')` for refit on resize)
+- [x] `fitArtFontSize`: pre art scales to `innerWidth / (maxCols * 0.56)`, capped at CSS size (no upscale); **6px floor** — below it (small phones vs 240-col art) the CSS size is kept and the container pans horizontally (`overflow-x: auto` + `touch-action: auto`) instead of shrinking to an illegible thumbnail (art stores text via `data('ascii-text')` for refit on resize)
 
 ## P3 — Copy & SEO — done (uncommitted)
 

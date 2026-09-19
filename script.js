@@ -124,6 +124,9 @@ function fitAsciiLines() {
 
 // Scale a pre art container so its longest line fits the viewport: the art is
 // shrunk to fit instead of clipped, and never upscaled past the CSS size.
+// When shrinking would drop below a 6px floor (small phones vs wide art),
+// keep the CSS size and let the container pan horizontally so the full art
+// stays reachable instead of becoming an illegible thumbnail.
 // (parent().width() is circular here — fit-content parents shrink to their
 // own art — so the viewport is the stable bound.)
 function fitArtFontSize($el, text) {
@@ -135,15 +138,18 @@ function fitArtFontSize($el, text) {
   if (!maxLen) return;
 
   // Read the CSS-driven size by briefly clearing any inline override.
-  var prevStyle = $el.attr('style');
-  $el.css('font-size', '');
+  $el.attr('style', '');
   var cssSize = parseFloat($el.css('font-size')) || 16;
-  if (prevStyle === undefined) $el.removeAttr('style');
-  else $el.attr('style', prevStyle);
 
   var ratio = 0.56; // approximate IBM VGA glyph width / font-size
   var fitSize = window.innerWidth / (maxLen * ratio);
-  $el.css('font-size', Math.min(cssSize, fitSize) + 'px');
+  if (fitSize >= 6) {
+    $el.css('font-size', Math.min(cssSize, fitSize) + 'px');
+  } else {
+    $el.css('overflow-x', 'auto');
+    $el.css('-webkit-overflow-scrolling', 'touch');
+    $el.css('touch-action', 'auto');
+  }
 }
 
 // Refit ASCII dividers, image box caps, and pre art when the layout changes

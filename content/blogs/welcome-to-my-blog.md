@@ -14,7 +14,7 @@ This site is built entirely with **vanilla HTML, CSS, and JavaScript**, featurin
 
 Here is a preview of the retro design aesthetic:
 
-![Photo from Oia](/content/blogs/images/welcome-to-my-blog/oia-uia.webp "320x320")
+![Photo from Oia](/content/blogs/images/welcome-to-my-blog/oia-uia.gif "320x320")
 
 Here is some sample code to celebrate:
 
