@@ -43,9 +43,18 @@
     <script src="script.js" defer></script>
   </head>
   <body>
-    <header class="ascii-container"></header>
-    <main class="ascii-container"></main>
-    <footer class="ascii-container"></footer>
+    <a class="skip-link" href="#main">Skip to Content</a>
+    <nav class="sr-nav" aria-label="Main Navigation">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="blogs.html">Blogs</a>
+    </nav>
+    <header class="ascii-container" aria-hidden="true"></header>
+    <main id="main">
+      <h1 class="sr-only">Natsurii - Portfolio</h1>
+      <div id="main-art" class="ascii-container" aria-hidden="true"></div>
+    </main>
+    <footer class="ascii-container" aria-hidden="true"></footer>
     
     <!-- CSP violation >:D -->
     <!-- This is just static site. -->
@@ -61,7 +70,7 @@
 
       });
       asciiToHTML('./components/footer.utf8ans', 'footer', 2, 5);
-      asciiToHTML('./components/index.utf8ans', 'main', 20, 100);
+      asciiToHTML('./components/index.utf8ans', '#main-art', 20, 100);
     });
     </script>
     

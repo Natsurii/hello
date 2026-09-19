@@ -252,9 +252,104 @@ body::after {
 /* Styling for anchor tags */
 a {
   color: inherit; /* Remove the default link color and inherit text color */
-  text-decoration: none; /* Remove underline */
+  text-decoration: underline; /* Links must be distinguishable at rest */
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
   font-weight: normal; /* Ensure normal link weight */
   transition: text-shadow 0.3s ease, filter 0.3s ease; /* Smooth transition for glow */
+}
+
+/* ASCII art links stay clean; real navigation lives in <nav class="sr-nav"> */
+header.ascii-container a {
+  text-decoration: none;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ============ Accessibility ============ */
+/* Screen-reader-only text: out of layout, still announced */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Jump link: parked above the viewport until focused */
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 8px;
+  z-index: 10005;
+  transform: translateY(-250%);
+  background: var(--bg);
+  color: var(--text-strong);
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+}
+
+.skip-link:focus {
+  transform: translateY(8px);
+}
+
+/* Real navigation: clipped until a link inside receives focus */
+.sr-nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10003;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.sr-nav:focus-within {
+  width: auto;
+  height: auto;
+  overflow: visible;
+  clip: auto;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  padding: 8px;
+}
+
+.sr-nav a {
+  display: block;
+  padding: 6px 10px;
+}
+
+/* Visible fallback content for the 404 page */
+.error-404 {
+  width: 100%;
+  max-width: 900px;
+  padding: 16px 8px;
+  text-align: center;
+  line-height: 1.6;
+}
+
+.error-404 h1 {
+  color: var(--accent);
+  font-size: 1.5em;
+  margin-bottom: 8px;
+}
+
+.error-404 p {
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+#main {
+  scroll-margin-top: 1em;
 }
 
 /* Hover state for anchor tags */
@@ -320,7 +415,6 @@ a:hover {
 
 .blog-post-title a {
   color: var(--text-strong);
-  text-decoration: none;
   font-size: 1.1em;
 }
 
