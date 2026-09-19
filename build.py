@@ -29,6 +29,8 @@ TEMPLATE = """<!--
   <meta name="description" content="{description}">
   <title>Natsurii - {title}</title>
   
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="preload" href="../assets/Px437_IBM_VGA_9x16.ttf" as="font" type="font/ttf">
   <link rel="icon" type="image/gif" href="../assets/favicon.gif">
   
   <!-- Open Graph / Social SEO -->
@@ -65,9 +67,9 @@ TEMPLATE = """<!--
   <link rel="stylesheet" href="../style.css">
   <link id="prism-dark" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-okaidia.min.css">
   <link id="prism-light" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" disabled>
-  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js" defer></script>
   <script src="../script.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to Content</a>
@@ -93,7 +95,7 @@ TEMPLATE = """<!--
   <footer class="ascii-container" aria-hidden="true"></footer>
 
   <script>
-  $(document).ready(function () {{
+  document.addEventListener('DOMContentLoaded', function () {{
     asciiToHTML('../components/header.utf8ans', 'header', 2, 5, function() {{
         addHyperlinkToText('header', '<home>', '../index.html');
         addHyperlinkToText('header', '<about>', '../about.html');
@@ -132,7 +134,8 @@ def main():
 
     sitemap_urls = [
         f"  <url>\n    <loc>{DOMAIN}/index.html</loc>\n    <changefreq>monthly</changefreq>\n    <priority>1.0</priority>\n  </url>",
-        f"  <url>\n    <loc>{DOMAIN}/blogs.html</loc>\n    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>\n  </url>"
+        f"  <url>\n    <loc>{DOMAIN}/blogs.html</loc>\n    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>\n  </url>",
+        f"  <url>\n    <loc>{DOMAIN}/about.html</loc>\n    <changefreq>monthly</changefreq>\n    <priority>0.8</priority>\n  </url>"
     ]
 
     for post in posts:

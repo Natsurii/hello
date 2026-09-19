@@ -37,9 +37,11 @@
   <meta name="twitter:title" content="Natsurii - About">
   <meta name="twitter:description" content="Natsurii's Portfolio. About">
   <meta name="twitter:image" content="https://natsurii.pages.dev/assets/og/about.png">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="preload" href="assets/Px437_IBM_VGA_9x16.ttf" as="font" type="font/ttf">
   <link rel="icon" type="image/gif" href="assets/favicon.gif">
   <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js" defer></script>
   <script src="script.js" defer></script>
 </head>
 <body>
@@ -55,7 +57,7 @@
     <div id="post-content">
       <div class="blog-header-banner">C:\ABOUT\INDEX.LOG</div>
           <h2>Work</h2>
-      <h2><a href="https://www.advancedenergy.com/en-us/">Advanced Energy Industries, Inc.</a> &mdash; Onsite - Eastwood, Quezon City, PH</h2>
+      <h3><a href="https://www.advancedenergy.com/en-us/">Advanced Energy Industries, Inc.</a> &mdash; Onsite - Eastwood, Quezon City, PH</h3>
       <p><strong>Firmware Engineer &mdash; 2024-08 - present</strong></p>
 <ul>
               <li>Optimized firmware for 16-bit/32-bit MCUs and DSPs across diverse semiconductor and industrial applications to improve system reliability, delivering cleaner, more stable operation on every device.</li>
@@ -91,7 +93,7 @@
 <ul>
               <li><em>Thesis</em>: FoodieVision: A YOLO-Based Portable Device for Grocery Food Identification and Audio Feedback for the Visually Impaired</li>
               <li><em>Activities</em>: Intercollegiate Quiz Bee Competitor, Robotics</li>
-              <li><em>Organizations</em>: Google Developers Club, Microsoft Student Community, AWS Cloud Club, Instititute of Computer Engineers of Philippines</li>
+              <li><em>Organizations</em>: Google Developers Club, Microsoft Student Community, AWS Cloud Club, Institute of Computer Engineers of Philippines</li>
             </ul>
           <hr class="retro-hr">
 
@@ -100,7 +102,7 @@
   <footer class="ascii-container" aria-hidden="true"></footer>
 
   <script>
-  $(document).ready(function () {
+  document.addEventListener('DOMContentLoaded', function () {
     asciiToHTML('./components/header.utf8ans', 'header', 2, 5, function() {
         addHyperlinkToText('header', '<home>', 'index.html');
         addHyperlinkToText('header', '<about>', 'about.html');
