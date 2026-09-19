@@ -1,0 +1,140 @@
+<!--
+ Copyright (c) 2025 Natsurii
+ 
+ This software is released under the MIT License.
+ https://opensource.org/licenses/MIT
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('natsurii-theme') === 'light' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta
+    name="description"
+    content="Natsurii's Portfolio. Contact">
+  <title>Natsurii - Contact</title>
+  <!-- Open Graph / Social SEO -->
+  <meta property="og:site_name" content="Natsurii">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://natsurii.pages.dev/contact.html">
+  <meta property="og:title" content="Natsurii - Contact">
+  <meta property="og:description" content="Natsurii's Portfolio. Contact">
+  <meta property="og:image" content="https://natsurii.pages.dev/assets/og/contact.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Natsurii - Contact">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Natsurii - Contact">
+  <meta name="twitter:description" content="Natsurii's Portfolio. Contact">
+  <meta name="twitter:image" content="https://natsurii.pages.dev/assets/og/contact.png">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="preload" href="assets/Px437_IBM_VGA_9x16.ttf" as="font" type="font/ttf">
+  <link rel="icon" type="image/gif" href="assets/favicon.gif">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js" defer></script>
+  <script src="script.js" defer></script>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to Content</a>
+  <nav class="sr-nav" aria-label="Main Navigation">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="blogs.html">Blogs</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <header class="ascii-container" aria-hidden="true"></header>
+  <main id="main" class="ascii-container blog-list-container markdown-container">
+    <h1 class="sr-only">Natsurii - Contact</h1>
+    <div id="post-content">
+      <div class="blog-header-banner">C:\CONTACT\INDEX.LOG</div>
+      <h2>Contact</h2>
+      <p>Have a question, a project in mind, or just want to say hi? Transmit a message below &mdash; it lands directly in my inbox.</p>
+      <div id="contact-status" class="contact-status" aria-live="polite">&gt; awaiting transmission&hellip;</div>
+      <form id="contact-form" class="contact-form" novalidate>
+        <label for="cf-name">name:</label>
+        <input type="text" id="cf-name" name="name" maxlength="200" required autocomplete="name">
+        <label for="cf-email">email:</label>
+        <input type="email" id="cf-email" name="email" maxlength="200" required autocomplete="email">
+        <label for="cf-message">message:</label>
+        <textarea id="cf-message" name="message" rows="6" maxlength="2000" required></textarea>
+        <input type="text" name="website" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div class="cf-turnstile" data-sitekey=""></div>
+        <button type="submit" id="cf-submit">[ TRANSMIT ]</button>
+      </form>
+    </div>
+  </main>
+  <footer class="ascii-container" aria-hidden="true"></footer>
+
+  <!-- CSP violation >:D -->
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    asciiToHTML('./components/header.utf8ans', 'header', 2, 5, function() {
+        addHyperlinkToText('header', '<home>', 'index.html');
+        addHyperlinkToText('header', '<about>', 'about.html');
+        addHyperlinkToText('header', '<blogs>', 'blogs.html');
+        addHyperlinkToText('header', '<contact>', 'contact.html');
+    });
+    asciiToHTML('./components/footer.utf8ans', 'footer', 2, 5);
+
+    var form = document.getElementById('contact-form');
+    var status = document.getElementById('contact-status');
+    var btn = document.getElementById('cf-submit');
+    var turnstileToken = '';
+
+    var widget = form.querySelector('.cf-turnstile');
+    var sitekey = widget.getAttribute('data-sitekey');
+    if (sitekey && window.turnstile) {
+      turnstile.render(widget, {
+        sitekey: sitekey,
+        callback: function (token) { turnstileToken = token; },
+      });
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      btn.disabled = true;
+      status.textContent = '> transmitting\u2026';
+      fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: form.elements['name'].value,
+          email: form.elements['email'].value,
+          message: form.elements['message'].value,
+          website: form.elements['website'].value,
+          turnstile: turnstileToken,
+        }),
+      })
+        .then(function (r) { return r.json(); })
+        .then(function (d) {
+          if (d.ok) {
+            status.textContent = "> OK \u2014 message delivered. I'll get back to you soon.";
+            form.reset();
+            turnstileToken = '';
+          } else {
+            status.textContent = '> ERR \u2014 ' + (d.error || 'something went wrong') + ' Try again.';
+          }
+        })
+        .catch(function () {
+          status.textContent = '> ERR \u2014 network failure. Check your connection and try again.';
+        })
+        .finally(function () {
+          btn.disabled = false;
+        });
+    });
+  });
+  </script>
+  <!-- End of CSP violation -->
+</body>
+</html>

@@ -77,6 +77,7 @@ TEMPLATE = """<!--
     <a href="../index.html">Home</a>
     <a href="../about.html">About</a>
     <a href="../blogs.html">Blogs</a>
+    <a href="../contact.html">Contact</a>
   </nav>
   <header class="ascii-container" aria-hidden="true"></header>
   <main id="main" class="ascii-container markdown-container">
@@ -100,6 +101,7 @@ TEMPLATE = """<!--
         addHyperlinkToText('header', '<home>', '../index.html');
         addHyperlinkToText('header', '<about>', '../about.html');
         addHyperlinkToText('header', '<blogs>', '../blogs.html');
+        addHyperlinkToText('header', '<contact>', '../contact.html');
     }});
     asciiToHTML('../components/footer.utf8ans', 'footer', 2, 5);
 
@@ -135,7 +137,8 @@ def main():
     sitemap_urls = [
         f"  <url>\n    <loc>{DOMAIN}/index.html</loc>\n    <changefreq>monthly</changefreq>\n    <priority>1.0</priority>\n  </url>",
         f"  <url>\n    <loc>{DOMAIN}/blogs.html</loc>\n    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>\n  </url>",
-        f"  <url>\n    <loc>{DOMAIN}/about.html</loc>\n    <changefreq>monthly</changefreq>\n    <priority>0.8</priority>\n  </url>"
+        f"  <url>\n    <loc>{DOMAIN}/about.html</loc>\n    <changefreq>monthly</changefreq>\n    <priority>0.8</priority>\n  </url>",
+        f"  <url>\n    <loc>{DOMAIN}/contact.html</loc>\n    <changefreq>monthly</changefreq>\n    <priority>0.7</priority>\n  </url>"
     ]
 
     for post in posts:
