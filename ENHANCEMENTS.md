@@ -43,13 +43,6 @@ Line numbers below are anchors (file/section), not exact lines — re-locate whe
 - [x] Blog dates: decided — keep retro `[2026-03-29]` display, wrapped in `<time datetime>` for semantics (no `Intl.DateTimeFormat`)
 - [x] Bonus: `parseMarkdown` blockquote regex fixed (`^> ` never matched — `>` is escaped to `&gt;` before that step, so blockquotes rendered as plain text)
 
-## Contact page — done
-
-- [x] `contact.html`: retro terminal form (name/email/message) + status box (`#contact-status`, `aria-live="polite"`), Turnstile div, honeypot field
-- [x] `functions/api/contact.js` (Pages Function): validate → honeypot → Turnstile siteverify (skipped while `TURNSTILE_SECRET` secret unset) → Resend API → `natsurii@protonmail.com`; key via Pages secret, never in source
-- [x] `header.utf8ans`: nav box widened, `<contact>` token; sr-nav + art link on all pages; sitemap += contact.html; `contact.png` og card via make_og.py
-- [ ] User setup (dashboard): Resend API key → Pages secret `RESEND_API_KEY`; Turnstile widget sitekey → `contact.html` `data-sitekey` + Pages secret `TURNSTILE_SECRET`
-
 ## Notes
 
 - build.py is the source of truth for `blogs/*.html` — fix the template, then run `python3 build.py`
