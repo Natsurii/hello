@@ -82,10 +82,9 @@ for (const block of value) {
 		if (block._type === "code") {
 			const lang = esc(block.language ?? "");
 			const cls = lang ? `language-${lang}` : "";
+			// No whitespace between the tags: <pre> renders it as a leading blank line.
 			return (
-				<pre class={cls}>
-					<code class={cls} set:html={esc(block.code ?? "")} />
-				</pre>
+				<pre class={cls}><code class={cls} set:html={esc(block.code ?? "")} /></pre>
 			);
 		}
 
