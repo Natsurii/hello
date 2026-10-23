@@ -9,6 +9,7 @@ interface Props {
 	ogType?: "website" | "article" | "profile";
 	ogImage?: string;
 	ogUrl?: string;
+	ogTitle?: string;
 	publishedTime?: string;
 	mainClass?: string;
 }
@@ -19,6 +20,7 @@ const {
 	ogType = "website",
 	ogImage = "",
 	ogUrl = "",
+	ogTitle,
 	publishedTime,
 	mainClass = "",
 } = Astro.props;
@@ -28,7 +30,7 @@ const pageCtx = createPublicPageContext({
 	kind: "custom",
 	pageType: ogType === "article" ? "article" : "custom",
 	title,
-	pageTitle: title,
+	pageTitle: ogTitle ?? title,
 	description,
 	canonical: ogUrl || undefined,
 	seo: { ogImage: ogImage || undefined },

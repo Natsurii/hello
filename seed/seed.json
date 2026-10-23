@@ -9,7 +9,7 @@
 	"settings": {
 		"title": "Natsurii",
 		"tagline": "Natsurii's Portfolio",
-		"url": "http://localhost:4321",
+		"url": "https://natsurii-portfolio.natsurii.workers.dev",
 		"seo": {
 			"defaultOgImage": {
 				"mediaId": "01M5M65SA1FK9BYFSFA0M315GZ",
@@ -83,6 +83,11 @@
 					"label": "Content",
 					"type": "portableText",
 					"searchable": true
+				},
+				{
+					"slug": "og_image",
+					"label": "Social Image",
+					"type": "image"
 				}
 			]
 		}
@@ -1030,7 +1035,14 @@
 							"_type": "horizontalRule",
 							"_key": "hr3o"
 						}
-					]
+					],
+					"og_image": {
+						"$media": {
+							"url": "https://raw.githubusercontent.com/Natsurii/hello/v3/assets/og/about.png",
+							"filename": "about.png",
+							"alt": "Natsurii - About"
+						}
+					}
 				}
 			}
 		]

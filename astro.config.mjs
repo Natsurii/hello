@@ -6,7 +6,9 @@ import emdash from "emdash/astro";
 
 export default defineConfig({
 	output: "server",
-	site: process.env.EMDASH_SITE_URL || "http://localhost:4321",
+	site:
+		process.env.EMDASH_SITE_URL ||
+		"https://natsurii-portfolio.natsurii.workers.dev",
 	adapter: cloudflare(),
 	image: {
 		layout: "constrained",
