@@ -28,7 +28,7 @@ const {
 const pageCtx = createPublicPageContext({
 	Astro,
 	kind: "custom",
-	pageType: ogType === "article" ? "article" : "custom",
+	pageType: ogType,
 	title,
 	pageTitle: ogTitle ?? title,
 	description,
@@ -58,6 +58,7 @@ const pageCtx = createPublicPageContext({
 		<meta name="description" content={description} />
 		<title>{title}</title>
 		<EmDashHead page={pageCtx} />
+		{ogType === "profile" && <meta property="og:type" content="profile" />}
 		<link rel="preconnect" href="https://cdn.jsdelivr.net" />
 		<link
 			rel="preload"
