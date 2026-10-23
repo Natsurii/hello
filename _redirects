@@ -1,2 +1,8 @@
 # Legacy static site -> EmDash app
+/index.html    https://portfolio.natsurii.workers.dev/            301
+/blogs.html    https://portfolio.natsurii.workers.dev/posts       301
+/about.html    https://portfolio.natsurii.workers.dev/about       301
+/404.html      https://portfolio.natsurii.workers.dev/404         301
+/blogs/building-static-sites.html  https://portfolio.natsurii.workers.dev/posts/building-static-sites  301
+/blogs/welcome-to-my-blog.html     https://portfolio.natsurii.workers.dev/posts/welcome-to-my-blog     301
 /*  https://portfolio.natsurii.workers.dev/:splat  301
