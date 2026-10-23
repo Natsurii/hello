@@ -36,7 +36,7 @@ const published = post.data.publishedAt;
 	description={post.data.excerpt ?? ""}
 	ogType="article"
 	ogImage={image}
-	ogUrl={`${Astro.site ?? Astro.url.origin}/posts/${post.id}`}
+	ogUrl={`${(Astro.site ?? Astro.url.origin).toString().replace(/\/$/, "")}/posts/${post.id}`}
 	publishedTime={published ? published.toISOString() : undefined}
 	mainClass="ascii-container markdown-container"
 >

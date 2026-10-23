@@ -6,6 +6,7 @@ import emdash from "emdash/astro";
 
 export default defineConfig({
 	output: "server",
+	site: process.env.EMDASH_SITE_URL || "http://localhost:4321",
 	adapter: cloudflare(),
 	image: {
 		layout: "constrained",
@@ -14,6 +15,7 @@ export default defineConfig({
 	integrations: [
 		react(),
 		emdash({
+			siteUrl: process.env.EMDASH_SITE_URL,
 			database: d1({ binding: "DB", session: "auto", coalesce: true }),
 			storage: r2({ binding: "MEDIA" }),
 		}),

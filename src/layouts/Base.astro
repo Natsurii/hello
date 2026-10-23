@@ -33,6 +33,7 @@ const pageCtx = createPublicPageContext({
 	canonical: ogUrl || undefined,
 	seo: { ogImage: ogImage || undefined },
 	siteName: "Natsurii",
+	articleMeta: { publishedTime, author: ogType === "article" ? "Natsurii" : undefined },
 });
 ---
 
