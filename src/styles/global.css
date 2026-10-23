@@ -1,0 +1,727 @@
+/* Load the custom font */
+@font-face {
+  font-family: 'IBM VGA';
+  src: url('/assets/Px437_IBM_VGA_9x16.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ============ Theme Tokens ============ */
+/* Dark (CRT) is the default palette. Light (classic Mac 1-bit) overrides
+   the same custom properties under [data-theme="light"] on <html>. */
+:root {
+  color-scheme: dark;
+  --bg: #181818;
+  --bg-image: radial-gradient(circle, #101010, #000000 60%) no-repeat;
+  --text: lightgray;
+  --text-strong: #fff;
+  --accent: #00ff00;
+  --muted: #aaa;
+  --faint: #888;
+  --divider: #444;
+  --border: #333;
+  --code-bg: #0a0a0a;
+  --code-border: #333;
+  --inline-code-bg: #111;
+  --img-bg: #0d0d0d;
+  --glow: 0 0 2px lightgray, 0 0 1px lightgray, 0 0 1px #00f, 0 0 5px #00f;
+  --panel-bg: transparent;
+  --panel-border: transparent;
+  --panel-shadow: transparent;
+  /* theme switch (monochrome: no green, stays low-key) */
+  --switch-track: #0a0a0a;
+  --switch-thumb: #cccccc;
+  --switch-border: #7a7a7a;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f1ebcf;
+  --bg-image: #f1ebcf;
+  --text: #2a2410;
+  --text-strong: #1a1608;
+  --accent: #6b5e1e;
+  --muted: #4a4326;
+  --faint: #6a6138;
+  --divider: #b7ac7e;
+  --border: #8f8452;
+  --code-bg: #f7f2e0;
+  --code-border: #8f8452;
+  --inline-code-bg: #e4dcb8;
+  --img-bg: #f7f2e0;
+  --glow: none;
+  --panel-bg: #f7f2e0;
+  --panel-border: #6b5e1e;
+  --panel-shadow: rgba(90, 78, 30, 0.28);
+  --switch-track: #f7f2e0;
+  --switch-thumb: #6b5e1e;
+  --switch-border: #6b5e1e;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  /* Prevent mobile browsers from auto-boosting tiny ASCII text */
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+}
+
+/* Make body a stacking context so the light-mode dither (body::before at
+   z-index:-1) paints above the background but behind content, instead of
+   escaping underneath the body's own white background. */
+body {
+  isolation: isolate;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'IBM VGA', monospace;
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;     /* center content horizontally */
+  justify-content: flex-start; /* content grows from top, no forced height fit */
+  background: var(--bg-image);
+  background-size: cover;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+  transition: background-color .15s ease, color .15s ease;
+}
+
+/* ============ CRT Filter Overlay ============ */
+/* Pure CSS overlay, applied globally across all pages via pseudo-elements. */
+
+/* Scanlines + subtle barrel/vignette */
+body::before {
+  content: '';
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 0px,
+      rgba(0, 0, 0, 0) 2px,
+      rgba(0, 0, 0, 0.1) 3px,
+      rgba(0, 0, 0, 0.1) 4px
+    ),
+    repeating-linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0.015) 0px,
+      rgba(255, 255, 255, 0.015) 1px,
+      rgba(0, 0, 0, 0.03) 2px
+    ),
+    radial-gradient(
+      ellipse at center,
+      rgba(0, 0, 0, 0) 55%,
+      rgba(0, 0, 0, 0.22) 100%
+    );
+  mix-blend-mode: multiply;
+}
+
+/* Chromatic glow tint (subtle green/blue phosphor feel) */
+body::after {
+  content: '';
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(0, 255, 0, 0.02) 0%,
+      rgba(0, 128, 255, 0.015) 60%,
+      rgba(0, 0, 0, 0) 100%
+    );
+  mix-blend-mode: screen;
+}
+
+/* Slow drifting scan bar for authentic CRT refresh feel */
+.crt-scanbar {
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 90px;
+  z-index: 10000;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(255, 255, 255, 0.03) 50%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  animation: crt-drift 9s linear infinite;
+}
+
+/* Animate transform (compositor-only), not top (layout) */
+@keyframes crt-drift {
+  0%   { transform: translateY(-15vh); opacity: 1; }
+  50%  { transform: translateY(110vh); opacity: 0.4; }
+  100% { transform: translateY(-15vh); opacity: 1; }
+}
+
+/* Gentle phosphor flicker that brightens/darkens the whole screen very subtly */
+@keyframes crt-flicker {
+  0%   { opacity: 1; }
+  3%   { opacity: 0.99; }
+  6%   { opacity: 1; }
+  49%  { opacity: 0.99; }
+  55%  { opacity: 1; }
+  71%  { opacity: 0.99; }
+  100% { opacity: 1; }
+}
+
+body::before,
+body::after {
+  animation: crt-flicker 8s infinite;
+}
+
+/* Respect users who prefer reduced motion: soften the animations
+   (the ASCII typing itself is skipped in script.js) */
+@media (prefers-reduced-motion: reduce) {
+  .crt-scanbar {
+    animation: none;
+    display: none;
+  }
+  body::before,
+  body::after {
+    animation: none;
+  }
+  .ascii-container {
+    animation: none;
+    opacity: 1;
+  }
+  .blog-header-banner::after {
+    animation: none;
+  }
+}
+
+/* Shared styles for ASCII art in semantic containers */
+.ascii-container {
+  text-shadow: var(--glow);
+  overflow-x: hidden;
+  white-space: pre;
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  box-sizing: border-box;
+  opacity: 0;
+  animation: fadeIn 1s forwards;
+  touch-action: pan-y;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Hide scrollbars */
+.ascii-container::-webkit-scrollbar {
+  display: none;
+}
+
+.ascii-container {
+  -ms-overflow-style: none; /* For IE and Edge */
+  scrollbar-width: none; /* For Firefox */
+}
+
+/* Responsive font size adjustments */
+.ascii-container {
+  font-size: clamp(6px, 1.4vw, 22px);
+}
+
+@media screen and (max-width: 800px) {
+  .ascii-container {
+    font-size: calc(6px + 0.2vw);
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .ascii-container {
+    font-size: calc(16px + 0.7vw);
+  }
+}
+
+/* Styling for anchor tags */
+a {
+  color: inherit; /* Remove the default link color and inherit text color */
+  text-decoration: underline; /* Links must be distinguishable at rest */
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  font-weight: normal; /* Ensure normal link weight */
+  transition: text-shadow 0.3s ease, filter 0.3s ease; /* Smooth transition for glow */
+}
+
+/* ASCII art links stay clean; real navigation lives in <nav class="sr-nav"> */
+header.ascii-container a {
+  text-decoration: none;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ============ Accessibility ============ */
+/* Screen-reader-only text: out of layout, still announced */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Jump link: parked above the viewport until focused */
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 8px;
+  z-index: 10005;
+  transform: translateY(-250%);
+  background: var(--bg);
+  color: var(--text-strong);
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+}
+
+.skip-link:focus {
+  transform: translateY(8px);
+}
+
+/* Real navigation: clipped until a link inside receives focus */
+.sr-nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10003;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.sr-nav:focus-within {
+  width: auto;
+  height: auto;
+  overflow: visible;
+  clip: auto;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  padding: 8px;
+}
+
+.sr-nav a {
+  display: block;
+  padding: 6px 10px;
+}
+
+/* Visible fallback content for the 404 page */
+.error-404 {
+  width: 100%;
+  max-width: 900px;
+  padding: 16px 8px;
+  text-align: center;
+  line-height: 1.6;
+}
+
+.error-404 h1 {
+  color: var(--accent);
+  font-size: 1.5em;
+  margin-bottom: 8px;
+}
+
+.error-404 p {
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+#main {
+  scroll-margin-top: 1em;
+}
+
+/* Hover state for anchor tags */
+a:hover {
+  text-shadow: 0 0 10px #00f, 0 0 20px #00f, 0 0 30px #00f, 0 0 40px #00f;
+  filter: brightness(1.3);
+}
+
+/* Blog & Markdown Styling */
+.blog-list-container,
+.markdown-container {
+  white-space: normal !important;
+  text-shadow: none;
+  width: 95%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 5px 10px;
+  line-height: 1.6;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  font-size: 1.05rem;
+}
+
+@media screen and (max-width: 800px) {
+  .blog-list-container,
+  .markdown-container {
+    font-size: 1rem;
+  }
+}
+
+.blog-header-banner {
+  white-space: normal;
+  text-align: left;
+  font-size: 1.3em;
+  max-width: 100%;
+  color: var(--accent);
+  margin-bottom: 15px;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+.blog-header-banner::after {
+  content: '▊';
+  margin-left: 4px;
+  color: var(--accent);
+  animation: cursor-blink 1s infinite;
+}
+
+@keyframes cursor-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+.blog-post-card {
+  margin-bottom: 15px;
+}
+
+.blog-post-date {
+  color: var(--faint);
+  font-size: 0.85em;
+  margin-bottom: 2px;
+}
+
+.blog-post-title a {
+  color: var(--text-strong);
+  font-size: 1.1em;
+}
+
+.blog-post-title a:hover {
+  color: var(--accent);
+}
+
+.blog-post-desc {
+  margin-top: 4px;
+  color: var(--text);
+  font-size: 0.95em;
+}
+
+.blog-post-divider {
+  margin-top: 10px;
+  color: var(--divider);
+}
+
+/* Markdown Rendered Elements */
+#post-content h1,
+#post-content h2,
+#post-content h3 {
+  color: var(--accent);
+  margin-top: 5px;
+  margin-bottom: 8px;
+}
+
+#post-content h1 {
+  font-size: 1.5em;
+  border-bottom: 1px dashed var(--divider);
+  padding-bottom: 4px;
+}
+
+#post-content h2 {
+  font-size: 1.25em;
+}
+
+#post-content h3 {
+  font-size: 1.05em;
+}
+
+#post-content p {
+  margin-bottom: 10px;
+  color: var(--text);
+}
+
+#post-content ul,
+#post-content ol {
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+
+#post-content li {
+  margin-bottom: 3px;
+}
+
+#post-content blockquote {
+  border-left: 3px solid var(--accent);
+  padding-left: 10px;
+  margin: 10px 0;
+  color: var(--muted);
+  font-style: italic;
+}
+
+#post-content pre {
+  background-color: var(--code-bg);
+  border: 1px solid var(--code-border);
+  padding: 10px;
+  overflow-x: auto;
+  margin: 10px 0;
+  border-radius: 4px;
+  font-family: 'IBM VGA', monospace;
+}
+
+#post-content code {
+  font-family: 'IBM VGA', monospace;
+  background-color: var(--inline-code-bg);
+  padding: 2px 4px;
+  color: var(--accent);
+}
+
+.retro-blog-img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  filter: contrast(1.1) brightness(0.95);
+  vertical-align: bottom;
+}
+
+.retro-img-wrapper {
+  margin: 15px 0;
+  font-family: 'IBM VGA', monospace;
+  display: flex;
+  flex-direction: column;
+}
+
+.ascii-box-line {
+  color: var(--accent);
+  font-size: 0.85em;
+  white-space: pre;
+  overflow-x: hidden;
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+}
+
+.retro-img-inner {
+  padding: 0;
+  background-color: var(--img-bg);
+  border-left: 1px solid var(--accent);
+  border-right: 1px solid var(--accent);
+  line-height: 0;
+}
+
+.retro-img-caption {
+  margin-top: 5px;
+  color: var(--faint);
+  font-size: 0.9em;
+}
+
+.retro-hr {
+  border: none;
+  border-top: 1px dashed var(--divider);
+  margin: 10px 0;
+}
+
+.blog-nav-top {
+  margin: 2px 0;
+}
+
+.blog-nav-bottom {
+  margin: 8px 0;
+}
+
+/* Mobile: keep everything inside the viewport width */
+@media screen and (max-width: 480px) {
+  html, body {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  .ascii-container {
+    font-size: clamp(7px, calc(100vw / 50), 11px);
+    width: fit-content;
+    max-width: 100vw;
+    padding: 0 4px;
+    text-align: left;
+  }
+
+  .blog-list-container,
+  .markdown-container {
+    width: 100%;
+    max-width: 100vw;
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  .blog-header-banner {
+    width: 100%;
+    max-width: 100vw;
+    text-align: left;
+  }
+
+  .ascii-box-line {
+    font-size: clamp(3px, calc(100vw / 75), 8px);
+    overflow-x: hidden;
+  }
+}
+
+/* ============ Light-mode (classic Mac) overrides ============ */
+/* Drop the chromatic tint + scan-bar, and replace the CRT scanline overlay
+   with a static 1-bit ordered dither (classic Mac desktop checker). */
+[data-theme="light"] body::after {
+  content: none;
+}
+
+/* Dither sits BEHIND content (z-index:-1) so ASCII + text stay crisp;
+   only the empty desktop shows it, white windows paint over it. */
+[data-theme="light"] body::before {
+  z-index: -1;
+  mix-blend-mode: normal;
+  animation: none;
+  background-color: var(--bg);
+  background-image:
+    linear-gradient(45deg, rgba(0, 0, 0, 0.16) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.16) 75%),
+    linear-gradient(45deg, rgba(0, 0, 0, 0.16) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.16) 75%);
+  background-size: 4px 4px;
+  background-position: 0 0, 2px 2px;
+}
+
+[data-theme="light"] .crt-scanbar {
+  display: none;
+}
+
+/* No phosphor bloom on links; Mac emphasis is an underline. */
+[data-theme="light"] a:hover {
+  text-shadow: none;
+  filter: none;
+  text-decoration: underline;
+}
+
+/* 1-bit selection (classic inverted highlight). */
+::selection {
+  background: #000;
+  color: #00ff00;
+}
+[data-theme="light"] ::selection {
+  background: #2a2410;
+  color: #f1ebcf;
+}
+
+/* Hairlines become solid on Mac instead of dashed. */
+[data-theme="light"] .retro-hr {
+  border-top-style: solid;
+}
+[data-theme="light"] #post-content h1 {
+  border-bottom-style: solid;
+}
+
+/* Content panels read as Mac windows: 1px frame + hard offset shadow. */
+[data-theme="light"] .markdown-container,
+[data-theme="light"] .blog-list-container {
+  background: var(--panel-bg);
+  border: 2px solid var(--panel-border);
+  box-shadow: 4px 4px 0 var(--panel-shadow);
+}
+
+/* ============ Theme switch (floating rectangle) ============ */
+.theme-switch {
+  position: fixed;
+  bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  right: calc(12px + env(safe-area-inset-right, 0px));
+  z-index: 10002;
+  display: block;
+  width: 4.4em;
+  height: 2.1em;
+  padding: 0;
+  font-size: 15px;
+  font-family: 'IBM VGA', monospace;
+  line-height: 1;
+  background: var(--switch-track);
+  border: 2px solid var(--switch-border);
+  border-radius: 0;
+  /* Halo ring in the page bg color separates the chip from busy ASCII art. */
+  box-shadow: 0 0 0 3px var(--bg), 3px 3px 0 rgba(0, 0, 0, 0.45);
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-appearance: none;
+  appearance: none;
+  user-select: none;
+}
+.theme-switch:focus-visible {
+  outline: 2px solid var(--switch-border);
+  outline-offset: 2px;
+}
+
+.theme-switch .sw-opt {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1em;
+  z-index: 1;
+}
+.theme-switch .sw-moon { left: 0; }
+.theme-switch .sw-sun { right: 0; }
+
+/* The crescent, drawn purely with CSS so it survives any font. */
+.theme-switch .crescent {
+  display: inline-block;
+  width: 0.9em;
+  height: 0.9em;
+  border-radius: 50%;
+  box-shadow: inset -0.38em 0 0 0 currentColor;
+}
+
+.theme-switch .sw-thumb {
+  position: absolute;
+  top: 1px;
+  bottom: 1px;
+  left: 1px;
+  width: calc(50% - 1px);
+  z-index: 0;
+  background: var(--switch-thumb);
+  transition: transform 0.15s ease;
+}
+
+/* Icon color depends on which side the thumb is covering. */
+.theme-switch[data-state="dark"] .sw-moon { color: var(--switch-track); }
+.theme-switch[data-state="dark"] .sw-sun  { color: var(--switch-thumb); }
+.theme-switch[data-state="light"] .sw-thumb { transform: translateX(100%); }
+.theme-switch[data-state="light"] .sw-sun  { color: var(--switch-track); }
+.theme-switch[data-state="light"] .sw-moon { color: var(--switch-thumb); }
