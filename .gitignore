@@ -1,0 +1,20 @@
+node_modules
+dist
+.astro
+.emdash/migrations.json
+uploads
+data.db
+data.db-*
+.wrangler
+
+# Environment / Wrangler secrets
+.env
+.env.*
+!.env.example
+.dev.vars
+.dev.vars.*
+
+# Migration evidence (untracked)
+.omo/
+session-ses_f5ab.md
+spike/
