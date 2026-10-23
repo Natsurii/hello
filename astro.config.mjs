@@ -17,7 +17,11 @@ export default defineConfig({
 	integrations: [
 		react(),
 		emdash({
-			siteUrl: process.env.EMDASH_SITE_URL,
+			siteUrl:
+				process.env.EMDASH_SITE_URL ||
+				"https://portfolio.natsurii.workers.dev",
+			// The passkey was registered on the old worker name; keep accepting it.
+			// rpId is the siteUrl origin; a passkey made on another worker name cannot match.
 			database: d1({ binding: "DB", session: "auto", coalesce: true }),
 			storage: r2({ binding: "MEDIA" }),
 		}),
