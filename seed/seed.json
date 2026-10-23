@@ -1034,37 +1034,5 @@
 				}
 			}
 		]
-	},
-	"redirects": [
-		{
-			"source": "/index.html",
-			"destination": "/",
-			"type": 301
-		},
-		{
-			"source": "/blogs.html",
-			"destination": "/posts",
-			"type": 301
-		},
-		{
-			"source": "/about.html",
-			"destination": "/about",
-			"type": 301
-		},
-		{
-			"source": "/404.html",
-			"destination": "/404",
-			"type": 301
-		},
-		{
-			"source": "/blogs/building-static-sites.html",
-			"destination": "/posts/building-static-sites",
-			"type": 301
-		},
-		{
-			"source": "/blogs/welcome-to-my-blog.html",
-			"destination": "/posts/welcome-to-my-blog",
-			"type": 301
-		}
-	]
+	}
 }
