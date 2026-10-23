@@ -1,0 +1,115 @@
+---
+// Renders Portable Text with the legacy parseMarkdown markup contract.
+interface Props {
+	value: any[];
+}
+const { value = [] } = Astro.props;
+
+const esc = (s: string) =>
+	s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+function inline(children: any[] = [], markDefs: any[] = []): string {
+	return children
+		.map((child) => {
+			if (child._type !== "span") return "";
+			let html = esc(child.text ?? "");
+			for (const mark of child.marks ?? []) {
+				if (mark === "strong") html = `<strong>${html}</strong>`;
+				else if (mark === "em") html = `<em>${html}</em>`;
+				else if (mark === "code") html = `<code>${html}</code>`;
+				else if (mark === "hardBreak") html = "<br>";
+				else {
+					const def = markDefs.find((d) => d._key === mark);
+					if (def?._type === "link")
+						html = `<a href="${esc(def.href ?? "")}">${html}</a>`;
+				}
+			}
+			return html;
+		})
+		.join("");
+}
+
+const imgSrc = (asset: any) =>
+	typeof asset?.url === "string" ? asset.url : (asset?._ref ?? "");
+
+// Group consecutive list items so each run becomes one ul/ol.
+type Node_ = { kind: "list"; ordered: boolean; items: string[] } | { kind: "node"; block: any };
+const nodes: Node_[] = [];
+for (const block of value) {
+	const item = block?._type === "block" ? (block.listItem as string | undefined) : undefined;
+	if (item === "bullet" || item === "number") {
+		const ordered = item === "number";
+		const last = nodes[nodes.length - 1];
+		const text = inline(block.children, block.markDefs);
+		if (last?.kind === "list" && last.ordered === ordered) last.items.push(text);
+		else nodes.push({ kind: "list", ordered, items: [text] });
+	} else nodes.push({ kind: "node", block });
+}
+---
+
+{
+	nodes.map((node) => {
+		if (node.kind === "list") {
+			return node.ordered ? (
+				<ol start={1}>
+					{node.items.map((t) => (
+						<li set:html={t} />
+					))}
+				</ol>
+			) : (
+				<ul>
+					{node.items.map((t) => (
+						<li set:html={t} />
+					))}
+				</ul>
+			);
+		}
+
+		const block = node.block;
+
+		if (block._type === "block") {
+			const text = inline(block.children, block.markDefs);
+			if (["h1", "h2", "h3", "h4", "h5", "h6"].includes(block.style)) {
+				const Tag = (
+					["h1", "h2", "h3"].includes(block.style) ? block.style : "h3"
+				) as "h1" | "h2" | "h3";
+				return <Tag set:html={text} />;
+			}
+			if (block.style === "blockquote") return <blockquote set:html={text} />;
+			return <p set:html={text} />;
+		}
+
+		if (block._type === "code") {
+			const lang = esc(block.language ?? "");
+			const cls = lang ? `language-${lang}` : "";
+			return (
+				<pre class={cls}>
+					<code class={cls} set:html={esc(block.code ?? "")} />
+				</pre>
+			);
+		}
+
+		if (block._type === "image") {
+			const src = imgSrc(block.asset);
+			const filename = src.split("/").pop() ?? "";
+			return (
+				<div class="retro-img-wrapper">
+					<div class="retro-img-caption">
+						&gt; file: {filename} ({block.alt})
+					</div>
+					<img
+						src={src}
+						alt={block.alt ?? ""}
+						class="retro-blog-img"
+						loading="lazy"
+						width={block.width}
+						height={block.height}
+					/>
+				</div>
+			);
+		}
+
+		if (block._type === "horizontalRule") return <hr class="retro-hr" />;
+		return <p>{inline(block.children ?? [], block.markDefs)}</p>;
+	})
+}

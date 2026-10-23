@@ -1,0 +1,32 @@
+---
+import { getEmDashEntry } from "emdash";
+import Base from "../layouts/Base.astro";
+import RetroPortableText from "../components/RetroPortableText.astro";
+
+const { entry: page, cacheHint } = await getEmDashEntry("pages", "about");
+
+if (!page) {
+	return Astro.redirect("/404");
+}
+
+if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
+---
+
+<Base
+	title="Natsurii - About"
+	description="Natsurii's Portfolio. About"
+	ogType="profile"
+	mainClass="ascii-container blog-list-container markdown-container"
+>
+	<h1 class="sr-only">Natsurii - About</h1>
+	<div id="post-content">
+		<div class="blog-header-banner">C:\ABOUT\INDEX.LOG</div>
+		<RetroPortableText value={page.data.content ?? []} />
+	</div>
+
+	<script is:inline>
+		document.addEventListener("DOMContentLoaded", function () {
+			fitAsciiLines();
+		});
+	</script>
+</Base>
