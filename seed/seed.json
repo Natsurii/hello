@@ -2,13 +2,20 @@
 	"$schema": "https://emdashcms.com/seed.schema.json",
 	"version": "1",
 	"meta": {
-		"name": "Blog Starter",
-		"description": "A blog with posts and pages",
-		"author": "EmDash"
+		"name": "Natsurii",
+		"description": "Natsurii's Portfolio",
+		"author": "Natsurii"
 	},
 	"settings": {
-		"title": "My Blog",
-		"tagline": "Thoughts on building for the web"
+		"title": "Natsurii",
+		"tagline": "Natsurii's Portfolio",
+		"url": "http://localhost:4321",
+		"seo": {
+			"defaultOgImage": {
+				"mediaId": "01M5M65SA1FK9BYFSFA0M315GZ",
+				"alt": "Natsurii - Portfolio"
+			}
+		}
 	},
 	"collections": [
 		{
@@ -16,7 +23,14 @@
 			"label": "Posts",
 			"labelSingular": "Post",
 			"urlPattern": "/posts/{slug}",
-			"supports": ["drafts", "revisions", "preview", "scheduling", "search", "seo"],
+			"supports": [
+				"drafts",
+				"revisions",
+				"preview",
+				"scheduling",
+				"search",
+				"seo"
+			],
 			"commentsEnabled": true,
 			"fields": [
 				{
@@ -48,8 +62,14 @@
 			"slug": "pages",
 			"label": "Pages",
 			"labelSingular": "Page",
-			"urlPattern": "/pages/{slug}",
-			"supports": ["drafts", "revisions", "preview", "search", "seo"],
+			"urlPattern": "/{slug}",
+			"supports": [
+				"drafts",
+				"revisions",
+				"preview",
+				"search",
+				"seo"
+			],
 			"fields": [
 				{
 					"slug": "title",
@@ -73,20 +93,8 @@
 			"label": "Categories",
 			"labelSingular": "Category",
 			"hierarchical": true,
-			"collections": ["posts"],
-			"terms": [
-				{
-					"slug": "development",
-					"label": "Development"
-				},
-				{
-					"slug": "design",
-					"label": "Design"
-				},
-				{
-					"slug": "notes",
-					"label": "Notes"
-				}
+			"collections": [
+				"posts"
 			]
 		},
 		{
@@ -94,187 +102,467 @@
 			"label": "Tags",
 			"labelSingular": "Tag",
 			"hierarchical": false,
-			"collections": ["posts"],
-			"terms": [
-				{
-					"slug": "webdev",
-					"label": "Web Development"
-				},
-				{
-					"slug": "opinion",
-					"label": "Opinion"
-				},
-				{
-					"slug": "tools",
-					"label": "Tools"
-				},
-				{
-					"slug": "creativity",
-					"label": "Creativity"
-				}
+			"collections": [
+				"posts"
 			]
 		}
 	],
 	"bylines": [
 		{
-			"id": "byline-editorial",
-			"slug": "emdash-editorial",
-			"displayName": "EmDash Editorial"
-		},
-		{
-			"id": "byline-guest",
-			"slug": "guest-contributor",
-			"displayName": "Guest Contributor",
-			"isGuest": true
+			"id": "byline-natsurii",
+			"slug": "natsurii",
+			"displayName": "Natsurii"
 		}
 	],
-	"menus": [
-		{
-			"name": "primary",
-			"label": "Primary Navigation",
-			"items": [
-				{
-					"type": "custom",
-					"label": "Home",
-					"url": "/"
-				},
-				{
-					"type": "custom",
-					"label": "About",
-					"url": "/pages/about"
-				},
-				{
-					"type": "custom",
-					"label": "Posts",
-					"url": "/posts"
-				}
-			]
-		}
-	],
-	"widgetAreas": [
-		{
-			"name": "sidebar",
-			"label": "Sidebar",
-			"description": "Widget area displayed on single post pages",
-			"widgets": [
-				{
-					"type": "component",
-					"componentId": "core:search",
-					"title": "Search"
-				},
-				{
-					"type": "component",
-					"componentId": "core:categories",
-					"title": "Categories"
-				},
-				{
-					"type": "component",
-					"componentId": "core:tags",
-					"title": "Tags"
-				},
-				{
-					"type": "component",
-					"componentId": "core:recent-posts",
-					"title": "Recent Posts",
-					"props": {
-						"count": 5,
-						"showDate": true
+	"menus": [],
+	"widgetAreas": [],
+	"sections": [],
+	"content": {
+		"posts": [
+			{
+				"id": "post-building",
+				"slug": "building-static-sites",
+				"status": "published",
+				"bylines": [
+					{
+						"byline": "byline-natsurii"
 					}
-				},
-				{
-					"type": "component",
-					"componentId": "core:archives",
-					"title": "Archives",
-					"props": {
-						"type": "monthly",
-						"limit": 6
-					}
-				}
-			]
-		},
-		{
-			"name": "footer",
-			"label": "Footer",
-			"description": "Widget area displayed in the site footer",
-			"widgets": [
-				{
-					"type": "content",
-					"title": "About",
+				],
+				"data": {
+					"title": "Why Vanilla JS and Markdown Rock",
+					"excerpt": "Exploring the simplicity and speed of zero-dependency static site generation.",
+					"featured_image": {
+						"$media": {
+							"url": "https://raw.githubusercontent.com/Natsurii/hello/v3/assets/og/building-static-sites.png",
+							"filename": "building-static-sites.png",
+							"alt": "Why Vanilla JS and Markdown Rock"
+						}
+					},
 					"content": [
 						{
 							"_type": "block",
+							"_key": "b11",
+							"style": "h1",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "s10",
+									"text": "Why Vanilla JS and Markdown Rock"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "b13",
 							"style": "normal",
 							"children": [
 								{
 									"_type": "span",
-									"text": "A blog about software, design, and the occasional stray thought.",
-									"_key": "k1"
+									"_key": "s12",
+									"text": "In an era of massive component frameworks and complex build pipelines, going back to basics is refreshing."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "b15",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "s14",
+									"text": "The Beauty of Vanilla JS"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "b19",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "s16",
+									"text": "Writing vanilla JavaScript forces you to understand the DOM, asynchronous requests ("
+								},
+								{
+									"_type": "span",
+									"_key": "s17",
+									"text": "fetch",
+									"marks": [
+										"code"
+									]
+								},
+								{
+									"_type": "span",
+									"_key": "s18",
+									"text": "), and string manipulation without layers of abstraction."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "b1b",
+							"style": "h3",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "s1a",
+									"text": "Advantages"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "b1e",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "s1c",
+									"text": "Blazing Fast",
+									"marks": [
+										"strong"
+									]
+								},
+								{
+									"_type": "span",
+									"_key": "s1d",
+									"text": ": Loads instantly with zero bloat."
 								}
 							],
-							"_key": "k0"
+							"listItem": "number",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "b1j",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "s1f",
+									"text": "Easy to Maintain",
+									"marks": [
+										"strong"
+									]
+								},
+								{
+									"_type": "span",
+									"_key": "s1g",
+									"text": ": No "
+								},
+								{
+									"_type": "span",
+									"_key": "s1h",
+									"text": "node_modules",
+									"marks": [
+										"code"
+									]
+								},
+								{
+									"_type": "span",
+									"_key": "s1i",
+									"text": " hell or broken package locks."
+								}
+							],
+							"listItem": "number",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "b1m",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "s1k",
+									"text": "True Ownership",
+									"marks": [
+										"strong"
+									]
+								},
+								{
+									"_type": "span",
+									"_key": "s1l",
+									"text": ": Every line of code is yours."
+								}
+							],
+							"listItem": "number",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "b1o",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "s1n",
+									"text": "Combine this with Markdown files for content, and you have a resilient, portable blogging platform that can be hosted anywhere for free!"
+								}
+							]
 						}
 					]
 				}
-			]
-		}
-	],
-	"sections": [
-		{
-			"slug": "newsletter-signup",
-			"title": "Newsletter Signup",
-			"description": "A call-to-action block for newsletter subscriptions",
-			"keywords": ["newsletter", "subscribe", "email", "cta"],
-			"source": "theme",
-			"content": [
-				{
-					"_type": "block",
-					"style": "h3",
-					"children": [
-						{
-							"_type": "span",
-							"text": "Stay in the loop",
-							"_key": "k1"
+			},
+			{
+				"id": "post-welcome",
+				"slug": "welcome-to-my-blog",
+				"status": "published",
+				"bylines": [
+					{
+						"byline": "byline-natsurii"
+					}
+				],
+				"data": {
+					"title": "Welcome to My Retro Terminal Blog",
+					"excerpt": "An introduction to my static Markdown blog rendered via vanilla JavaScript and IBM VGA aesthetics.",
+					"featured_image": {
+						"$media": {
+							"url": "https://raw.githubusercontent.com/Natsurii/hello/v3/assets/og/welcome-to-my-blog.png",
+							"filename": "welcome-to-my-blog.png",
+							"alt": "Welcome to My Retro Terminal Blog"
 						}
-					],
-					"_key": "k0"
-				},
-				{
-					"_type": "block",
-					"style": "normal",
-					"children": [
+					},
+					"content": [
 						{
-							"_type": "span",
-							"text": "Get notified when new posts are published. No spam, unsubscribe anytime.",
-							"_key": "k3"
+							"_type": "block",
+							"_key": "b2",
+							"style": "h1",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "s1",
+									"text": "Welcome to My Retro Terminal Blog"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "b4",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "s3",
+									"text": "Welcome! This is the very first post on my retro-themed static blog."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "b6",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "s5",
+									"text": "What is this?"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "ba",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "s7",
+									"text": "This site is built entirely with "
+								},
+								{
+									"_type": "span",
+									"_key": "s8",
+									"text": "vanilla HTML, CSS, and JavaScript",
+									"marks": [
+										"strong"
+									]
+								},
+								{
+									"_type": "span",
+									"_key": "s9",
+									"text": ", featuring an authentic IBM VGA terminal aesthetic complete with glowing phosphor effects and typewriter rendering."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "bc",
+							"style": "h3",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "sb",
+									"text": "Features"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "bf",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "sd",
+									"text": "100% Static",
+									"marks": [
+										"strong"
+									]
+								},
+								{
+									"_type": "span",
+									"_key": "se",
+									"text": ": No backend servers, databases, or heavy frameworks required."
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "bk",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "sg",
+									"text": "Markdown Support",
+									"marks": [
+										"strong"
+									]
+								},
+								{
+									"_type": "span",
+									"_key": "sh",
+									"text": ": Posts are written in clean Markdown ("
+								},
+								{
+									"_type": "span",
+									"_key": "si",
+									"text": ".md",
+									"marks": [
+										"code"
+									]
+								},
+								{
+									"_type": "span",
+									"_key": "sj",
+									"text": ") and converted to static HTML dynamically using a lightweight vanilla JS parser."
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "bp",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "sl",
+									"text": "Retro Vibe",
+									"marks": [
+										"strong"
+									]
+								},
+								{
+									"_type": "span",
+									"_key": "sm",
+									"text": ": Custom font ("
+								},
+								{
+									"_type": "span",
+									"_key": "sn",
+									"text": "Px437_IBM_VGA_9x16.ttf",
+									"marks": [
+										"code"
+									]
+								},
+								{
+									"_type": "span",
+									"_key": "so",
+									"text": ") and glowing ANSI art inspired headers."
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "br",
+							"style": "blockquote",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "sq",
+									"text": "“Simplicity is the ultimate sophistication.” — Leonardo da Vinci"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "bt",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "ss",
+									"text": "Here is a preview of the retro design aesthetic:"
+								}
+							]
+						},
+						{
+							"_type": "image",
+							"_key": "iu",
+							"asset": {
+								"$media": {
+									"url": "https://raw.githubusercontent.com/Natsurii/hello/v3/content/blogs/images/welcome-to-my-blog/oia-uia.gif",
+									"filename": "oia-uia.gif",
+									"alt": "Photo from Oia"
+								}
+							},
+							"alt": "Photo from Oia",
+							"width": 320,
+							"height": 320
+						},
+						{
+							"_type": "block",
+							"_key": "bw",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "sv",
+									"text": "Here is some sample code to celebrate:"
+								}
+							]
+						},
+						{
+							"_type": "code",
+							"_key": "cx",
+							"code": "function greet() {\n  console.log(\"Hello, retro world!!!\");\n}\ngreet();",
+							"language": "javascript"
+						},
+						{
+							"_type": "block",
+							"_key": "bz",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "sy",
+									"text": "Stay tuned for more posts!"
+								}
+							]
 						}
-					],
-					"_key": "k2"
+					]
 				}
-			]
-		},
-		{
-			"slug": "about-author",
-			"title": "About the Author",
-			"description": "Brief author bio for use in posts or pages",
-			"keywords": ["author", "bio", "about"],
-			"source": "theme",
-			"content": [
-				{
-					"_type": "block",
-					"style": "normal",
-					"children": [
-						{
-							"_type": "span",
-							"text": "A software developer who writes about building things on the web. Based somewhere with good coffee and reliable internet.",
-							"_key": "k1"
-						}
-					],
-					"_key": "k0"
-				}
-			]
-		}
-	],
-	"content": {
+			}
+		],
 		"pages": [
 			{
 				"id": "about",
@@ -285,656 +573,498 @@
 					"content": [
 						{
 							"_type": "block",
-							"style": "normal",
-							"children": [
-								{
-									"_type": "span",
-									"text": "A place for writing about software, design, and the occasional stray thought. No posting schedule, no newsletter funnel. Just things I wanted to write down.",
-									"_key": "k1"
-								}
-							],
-							"_key": "k0"
-						},
-						{
-							"_type": "block",
-							"style": "normal",
-							"children": [
-								{
-									"_type": "span",
-									"text": "Built with Astro and EmDash. The source is open if you want to see how it works.",
-									"_key": "k3"
-								}
-							],
-							"_key": "k2"
-						}
-					]
-				}
-			}
-		],
-		"posts": [
-			{
-				"id": "post-1",
-				"slug": "building-for-the-long-term",
-				"status": "published",
-				"data": {
-					"title": "Building for the Long Term",
-					"excerpt": "The frameworks will change. The databases will change. What survives is the clarity of your thinking.",
-					"featured_image": {
-						"$media": {
-							"url": "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1200&h=800&fit=crop",
-							"alt": "Code on a monitor in a dark room",
-							"filename": "building-long-term.jpg"
-						}
-					},
-					"content": [
-						{
-							"_type": "block",
-							"style": "normal",
-							"children": [
-								{
-									"_type": "span",
-									"text": "Every few years the industry collectively decides that everything we've been doing is wrong and there's a better way. New frameworks, new paradigms, new build tools. The churn is relentless, and if you're not careful, you spend more time migrating than building.",
-									"_key": "k1"
-								}
-							],
-							"_key": "k0"
-						},
-						{
-							"_type": "block",
-							"style": "normal",
-							"children": [
-								{
-									"_type": "span",
-									"text": "I've been writing software long enough to have seen several of these cycles. jQuery to Backbone to Angular to React to whatever comes next. Each transition felt urgent at the time. Looking back, the things that actually mattered were rarely about the framework.",
-									"_key": "k3"
-								}
-							],
-							"_key": "k2"
-						},
-						{
-							"_type": "block",
+							"_key": "b1q",
 							"style": "h2",
 							"children": [
 								{
 									"_type": "span",
-									"text": "What survives",
-									"_key": "k5"
+									"_key": "s1p",
+									"text": "Work"
 								}
-							],
-							"_key": "k4"
+							]
 						},
 						{
 							"_type": "block",
+							"_key": "b1u",
+							"style": "h3",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "s1s",
+									"text": "Advanced Energy Industries, Inc.",
+									"marks": [
+										"lm1r"
+									]
+								},
+								{
+									"_type": "span",
+									"_key": "s1t",
+									"text": " — Onsite - Eastwood, Quezon City, PH"
+								}
+							],
+							"markDefs": [
+								{
+									"_type": "link",
+									"_key": "m1r",
+									"href": "https://www.advancedenergy.com/en-us/"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "b1w",
 							"style": "normal",
 							"children": [
 								{
 									"_type": "span",
-									"text": "Clean data models survive. Clear boundaries between systems survive. Good naming survives. The decision to keep things simple when you could have made them clever - that definitely survives.",
-									"_key": "k7"
+									"_key": "s1v",
+									"text": "Firmware Engineer — 2024-08 - present",
+									"marks": [
+										"strong"
+									]
 								}
-							],
-							"_key": "k6"
+							]
 						},
 						{
 							"_type": "block",
+							"_key": "b1y",
 							"style": "normal",
 							"children": [
 								{
 									"_type": "span",
-									"text": "What doesn't survive is code that was written to impress, abstractions built for problems that never materialized, and architectures designed around a framework's opinions rather than the domain's reality.",
-									"_key": "k9"
+									"_key": "s1x",
+									"text": "Optimized firmware for 16-bit/32-bit MCUs and DSPs across diverse semiconductor and industrial applications to improve system reliability, delivering cleaner, more stable operation on every device."
 								}
 							],
-							"_key": "k8"
+							"listItem": "bullet",
+							"level": 1
 						},
 						{
 							"_type": "block",
+							"_key": "b20",
 							"style": "normal",
 							"children": [
 								{
 									"_type": "span",
-									"text": "The best code I've written is boring. It reads like prose, does one thing well, and doesn't require a PhD in category theory to understand. The worst code I've written was technically impressive at the time.",
-									"_key": "k11"
+									"_key": "s1z",
+									"text": "Accelerated onboarding and cross-team knowledge transfer by documenting the theory of operation for 3 new technology blocks, giving design teams a clear reference for future work."
 								}
 							],
-							"_key": "k10"
-						}
-					]
-				},
-				"bylines": [
-					{
-						"byline": "byline-editorial"
-					},
-					{
-						"byline": "byline-guest",
-						"roleLabel": "Guest essay"
-					}
-				],
-				"taxonomies": {
-					"category": ["development"],
-					"tag": ["opinion"]
-				}
-			},
-			{
-				"id": "post-2",
-				"slug": "the-case-for-static",
-				"status": "published",
-				"data": {
-					"title": "The Case for Static",
-					"excerpt": "Static sites aren't a step backwards. They're what you get when you take performance and simplicity seriously.",
-					"featured_image": {
-						"$media": {
-							"url": "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=1200&h=800&fit=crop",
-							"alt": "Laptop and coffee on a wooden table",
-							"filename": "case-for-static.jpg"
-						}
-					},
-					"content": [
+							"listItem": "bullet",
+							"level": 1
+						},
 						{
 							"_type": "block",
+							"_key": "b22",
 							"style": "normal",
 							"children": [
 								{
 									"_type": "span",
-									"text": "There's a certain irony in the fact that the web started static, went dynamic, and is now swinging back toward static again. But the static sites of today aren't the hand-coded HTML pages of 1998. They're generated, optimized, and deployed to edge networks that serve them in milliseconds.",
-									"_key": "k1"
+									"_key": "s21",
+									"text": "Diagnosed and resolved 2 complex hardware-firmware integration faults using JTAG and GDB debugging, working closely with the hardware engineering team to isolate root causes across both domains."
 								}
 							],
-							"_key": "k0"
+							"listItem": "bullet",
+							"level": 1
 						},
 						{
 							"_type": "block",
+							"_key": "b24",
 							"style": "normal",
 							"children": [
 								{
 									"_type": "span",
-									"text": "The pitch for server-rendered everything was compelling: dynamic content, personalization, real-time data. But most sites don't need most of that most of the time. A blog post doesn't need to be rendered on every request. A product page doesn't change every second.",
-									"_key": "k3"
+									"_key": "s23",
+									"text": "Enabled earlier hardware validation by developing an internal hardware tool that verifies firmware functions at the signal level, cutting the wait for hardware-level testing by 12 weeks."
 								}
 							],
-							"_key": "k2"
+							"listItem": "bullet",
+							"level": 1
 						},
 						{
 							"_type": "block",
+							"_key": "b26",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "s25",
+									"text": "Streamlined firmware validation by automating functional test strategies with Python scripts, replacing slow manual checks with repeatable, reliable runs."
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "b28",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "s27",
+									"text": "Strengthened release confidence by contributing to CI/CD pipeline improvements for firmware builds and testing, making deployments more consistent and dependable across key projects."
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "horizontalRule",
+							"_key": "hr29"
+						},
+						{
+							"_type": "block",
+							"_key": "b2b",
 							"style": "h2",
 							"children": [
 								{
 									"_type": "span",
-									"text": "The performance argument",
-									"_key": "k5"
+									"_key": "s2a",
+									"text": "Skills"
 								}
-							],
-							"_key": "k4"
+							]
 						},
 						{
 							"_type": "block",
+							"_key": "b2d",
+							"style": "h3",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "s2c",
+									"text": "Programming"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "b2f",
 							"style": "normal",
 							"children": [
 								{
 									"_type": "span",
-									"text": "A static file served from a CDN is as fast as the web gets. No cold starts, no database queries, no server-side rendering overhead. The Time to First Byte is essentially the network latency to your nearest edge node. You can't beat physics.",
-									"_key": "k7"
+									"_key": "s2e",
+									"text": "C | C++ | Python | Assembly"
 								}
-							],
-							"_key": "k6"
+							]
 						},
 						{
 							"_type": "block",
+							"_key": "b2h",
+							"style": "h3",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "s2g",
+									"text": "CI/CD"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "b2j",
 							"style": "normal",
 							"children": [
 								{
 									"_type": "span",
-									"text": "And when you do need dynamic behavior, you can add it surgically. An island of interactivity in a sea of static HTML. The best of both worlds, without paying the cost of either at all times.",
-									"_key": "k9"
+									"_key": "s2i",
+									"text": "Bitbucket Pipelines | Github Actions | JFrog Artifactory"
 								}
-							],
-							"_key": "k8"
-						}
-					]
-				},
-				"bylines": [
-					{
-						"byline": "byline-editorial"
-					}
-				],
-				"taxonomies": {
-					"category": ["development"],
-					"tag": ["webdev", "opinion"]
-				}
-			},
-			{
-				"id": "post-3",
-				"slug": "learning-in-public",
-				"status": "published",
-				"data": {
-					"title": "Learning in Public",
-					"excerpt": "Writing about what you're learning is the fastest way to find out what you don't actually understand.",
-					"featured_image": {
-						"$media": {
-							"url": "https://images.unsplash.com/photo-1432821596592-e2c18b78144f?w=1200&h=800&fit=crop",
-							"alt": "Notebook and pen on a desk",
-							"filename": "learning-in-public.jpg"
-						}
-					},
-					"content": [
+							]
+						},
 						{
 							"_type": "block",
+							"_key": "b2l",
+							"style": "h3",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "s2k",
+									"text": "Frameworks"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "b2n",
 							"style": "normal",
 							"children": [
 								{
 									"_type": "span",
-									"text": "I started writing about things I was learning not because I had anything original to say, but because I kept forgetting what I'd figured out. The blog posts were notes to my future self, published publicly more out of laziness than courage.",
-									"_key": "k1"
+									"_key": "s2m",
+									"text": "STM32Cube | Arduino Core | libopencm3 | FreeRTOS | Zephyr | CMSIS"
 								}
-							],
-							"_key": "k0"
+							]
 						},
 						{
 							"_type": "block",
+							"_key": "b2p",
+							"style": "h3",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "s2o",
+									"text": "Software Tools"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "b2r",
 							"style": "normal",
 							"children": [
 								{
 									"_type": "span",
-									"text": "What I didn't expect was how much the writing itself would accelerate the learning. There's a particular kind of clarity that comes from trying to explain something to someone else. The gaps in your understanding, which you can happily ignore when the knowledge lives only in your head, become painfully obvious when you try to put it into sentences.",
-									"_key": "k3"
+									"_key": "s2q",
+									"text": "Git | Jira | Linux | Docker | KiCAD | GCC/LLVM Compilers"
 								}
-							],
-							"_key": "k2"
+							]
 						},
 						{
 							"_type": "block",
+							"_key": "b2t",
+							"style": "h3",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "s2s",
+									"text": "MCUs & MPUs"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "b2v",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "s2u",
+									"text": "STM32 | XMC4000 | Raspberry Pi | ESP32"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "b2x",
+							"style": "h3",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "s2w",
+									"text": "Communications"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "b2z",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "s2y",
+									"text": "UART | RS232 | RS485 | I2C | PMBUS | SMBUS | CAN | SPI | Ethernet | EtherCAT | USB"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "b31",
+							"style": "h3",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "s30",
+									"text": "Equipments"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "b33",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"_key": "s32",
+									"text": "JLink Debugger | Digital Multimeter | Oscilloscope | Logic Analyzer | AC Source | DC Source | Soldering"
+								}
+							]
+						},
+						{
+							"_type": "horizontalRule",
+							"_key": "hr34"
+						},
+						{
+							"_type": "block",
+							"_key": "b36",
 							"style": "h2",
 							"children": [
 								{
 									"_type": "span",
-									"text": "The fear of being wrong",
-									"_key": "k5"
+									"_key": "s35",
+									"text": "Education"
 								}
-							],
-							"_key": "k4"
+							]
 						},
 						{
 							"_type": "block",
-							"style": "normal",
+							"_key": "b3a",
+							"style": "h3",
 							"children": [
 								{
 									"_type": "span",
-									"text": "The biggest barrier isn't time or writing skill. It's the fear of publishing something that turns out to be wrong. But here's the thing: being wrong publicly is one of the most efficient ways to learn. Someone will correct you, often kindly, and you'll remember that correction forever.",
-									"_key": "k7"
+									"_key": "s38",
+									"text": "Pamantasan ng Lungsod ng Maynila",
+									"marks": [
+										"lm37"
+									]
+								},
+								{
+									"_type": "span",
+									"_key": "s39",
+									"text": " — Bachelor of Science, Computer Engineering, 2020-08 - 2024-09, Manila, PH"
 								}
 							],
-							"_key": "k6"
+							"markDefs": [
+								{
+									"_type": "link",
+									"_key": "m37",
+									"href": "https://plm.edu.ph/"
+								}
+							]
 						},
 						{
 							"_type": "block",
+							"_key": "b3c",
 							"style": "normal",
 							"children": [
 								{
 									"_type": "span",
-									"text": "The posts that helped me most weren't written by experts. They were written by people one step ahead of me on the same path, in language that hadn't yet been polished into abstraction. There's a place for that kind of writing, and it's more valuable than most people realize.",
-									"_key": "k9"
+									"_key": "s3b",
+									"text": "Dean's List"
 								}
-							],
-							"_key": "k8"
-						}
-					]
-				},
-				"taxonomies": {
-					"category": ["notes"],
-					"tag": ["opinion"]
-				}
-			},
-			{
-				"id": "post-4",
-				"slug": "small-tools-big-impact",
-				"status": "published",
-				"data": {
-					"title": "Small Tools, Big Impact",
-					"excerpt": "The best developer tools do one thing well and get out of your way. A love letter to focused software.",
-					"featured_image": {
-						"$media": {
-							"url": "https://images.unsplash.com/photo-1575026615908-666710ae5e47?w=1200&h=800&fit=crop",
-							"alt": "Wrenches and hand tools hanging on a workshop wall",
-							"filename": "small-tools.jpg"
-						}
-					},
-					"content": [
-						{
-							"_type": "block",
-							"style": "normal",
-							"children": [
-								{
-									"_type": "span",
-									"text": "There's a class of software that doesn't get enough appreciation. Not the frameworks or the platforms or the IDEs, but the small, sharp tools that solve one problem so well you stop thinking about them. They become invisible, which is the highest compliment you can pay a tool.",
-									"_key": "k1"
-								}
-							],
-							"_key": "k0"
+							]
 						},
 						{
 							"_type": "block",
+							"_key": "b3e",
 							"style": "normal",
 							"children": [
 								{
 									"_type": "span",
-									"text": "I'm talking about things like ripgrep, which searches code so fast it changed how I think about searching. Or jq, which makes JSON feel like a first-class data format in the terminal. Or curl, which has been quietly powering the internet's plumbing for decades.",
-									"_key": "k3"
+									"_key": "s3d",
+									"text": "Software Design, Embedded Systems, Logic Circuits and Design, Data Structures & Algorithms, Computer Architecture and Organization, Digital Signal Processing"
 								}
-							],
-							"_key": "k2"
+							]
 						},
 						{
 							"_type": "block",
-							"style": "h2",
+							"_key": "b3h",
+							"style": "normal",
 							"children": [
 								{
 									"_type": "span",
-									"text": "The Unix philosophy, revisited",
-									"_key": "k5"
+									"_key": "s3f",
+									"text": "Thesis",
+									"marks": [
+										"em"
+									]
+								},
+								{
+									"_type": "span",
+									"_key": "s3g",
+									"text": ": FoodieVision: A YOLO-Based Portable Device for Grocery Food Identification and Audio Feedback for the Visually Impaired"
 								}
 							],
-							"_key": "k4"
+							"listItem": "bullet",
+							"level": 1
 						},
 						{
 							"_type": "block",
+							"_key": "b3k",
 							"style": "normal",
 							"children": [
 								{
 									"_type": "span",
-									"text": "Do one thing well. The advice is old enough to be a cliche, but the best modern tools still follow it. They don't try to be platforms. They don't have plugin ecosystems or configuration languages or startup wizards. They do their job and they compose with other tools that do theirs.",
-									"_key": "k7"
+									"_key": "s3i",
+									"text": "Activities",
+									"marks": [
+										"em"
+									]
+								},
+								{
+									"_type": "span",
+									"_key": "s3j",
+									"text": ": Intercollegiate Quiz Bee Competitor, Robotics"
 								}
 							],
-							"_key": "k6"
+							"listItem": "bullet",
+							"level": 1
 						},
 						{
 							"_type": "block",
+							"_key": "b3n",
 							"style": "normal",
 							"children": [
 								{
 									"_type": "span",
-									"text": "The temptation is always to add more. One more feature, one more option, one more integration. But every addition is a decision someone has to make, a path through the code that has to be maintained, a thing that can break. The best tools resist this. They stay small, and in staying small, they stay reliable.",
-									"_key": "k9"
-								}
-							],
-							"_key": "k8"
-						}
-					]
-				},
-				"taxonomies": {
-					"category": ["development"],
-					"tag": ["tools"]
-				}
-			},
-			{
-				"id": "post-5",
-				"slug": "designing-with-constraints",
-				"status": "published",
-				"data": {
-					"title": "Designing with Constraints",
-					"excerpt": "Limitations aren't obstacles to creativity. They're the structure that makes creativity possible.",
-					"featured_image": {
-						"$media": {
-							"url": "https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?w=1200&h=800&fit=crop",
-							"alt": "Pencils and design tools on a desk",
-							"filename": "designing-with-constraints.jpg"
-						}
-					},
-					"content": [
-						{
-							"_type": "block",
-							"style": "normal",
-							"children": [
+									"_key": "s3l",
+									"text": "Organizations",
+									"marks": [
+										"em"
+									]
+								},
 								{
 									"_type": "span",
-									"text": "Give a designer a blank canvas and unlimited time, and they'll often produce something mediocre. Give them a tight brief, a small screen, and a deadline, and they'll surprise you. This isn't a paradox - it's how creativity actually works.",
-									"_key": "k1"
+									"_key": "s3m",
+									"text": ": Google Developers Club, Microsoft Student Community, AWS Cloud Club, Institute of Computer Engineers of Philippines"
 								}
 							],
-							"_key": "k0"
+							"listItem": "bullet",
+							"level": 1
 						},
 						{
-							"_type": "block",
-							"style": "normal",
-							"children": [
-								{
-									"_type": "span",
-									"text": "Constraints force decisions. When you can't use more than two typefaces, you have to choose carefully. When the page has to load in under a second, every element earns its place. When the interface has to work on a 320px screen, you discover what's truly essential.",
-									"_key": "k3"
-								}
-							],
-							"_key": "k2"
-						},
-						{
-							"_type": "block",
-							"style": "h2",
-							"children": [
-								{
-									"_type": "span",
-									"text": "Embracing the box",
-									"_key": "k5"
-								}
-							],
-							"_key": "k4"
-						},
-						{
-							"_type": "block",
-							"style": "normal",
-							"children": [
-								{
-									"_type": "span",
-									"text": "The web itself is a constraint. HTML flows in one direction. CSS has a box model. Browsers have viewport sizes and font rendering quirks. You can fight these constraints or you can work with them, and the results are dramatically different.",
-									"_key": "k7"
-								}
-							],
-							"_key": "k6"
-						},
-						{
-							"_type": "block",
-							"style": "normal",
-							"children": [
-								{
-									"_type": "span",
-									"text": "The designs I admire most don't look like they were forced through a framework. They look like they grew naturally from the medium, respecting its grain rather than working against it. That only happens when you treat constraints as creative partners rather than enemies.",
-									"_key": "k9"
-								}
-							],
-							"_key": "k8"
-						}
-					]
-				},
-				"taxonomies": {
-					"category": ["design"],
-					"tag": ["creativity"]
-				}
-			},
-			{
-				"id": "post-6",
-				"slug": "a-weekend-with-a-side-project",
-				"status": "published",
-				"data": {
-					"title": "A Weekend with a Side Project",
-					"excerpt": "No stakeholders, no deadlines, no Jira tickets. Just you and a dumb idea that might turn into something.",
-					"featured_image": {
-						"$media": {
-							"url": "https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=1200&h=800&fit=crop",
-							"alt": "Code on a screen with a dark theme",
-							"filename": "weekend-side-project.jpg"
-						}
-					},
-					"content": [
-						{
-							"_type": "block",
-							"style": "normal",
-							"children": [
-								{
-									"_type": "span",
-									"text": "Saturday morning. Coffee's made, the house is quiet, and I've got an idea that's been nagging at me all week. Not a good idea, necessarily - just a persistent one. A small tool that does a thing I keep doing manually. How hard could it be?",
-									"_key": "k1"
-								}
-							],
-							"_key": "k0"
-						},
-						{
-							"_type": "block",
-							"style": "normal",
-							"children": [
-								{
-									"_type": "span",
-									"text": "This is the best kind of programming. No requirements document, no sprint planning, no pull request reviews. Just a text editor and a problem. The freedom to make terrible architectural decisions, rewrite everything twice, and follow tangents that turn out to be dead ends.",
-									"_key": "k3"
-								}
-							],
-							"_key": "k2"
-						},
-						{
-							"_type": "block",
-							"style": "h2",
-							"children": [
-								{
-									"_type": "span",
-									"text": "Why side projects matter",
-									"_key": "k5"
-								}
-							],
-							"_key": "k4"
-						},
-						{
-							"_type": "block",
-							"style": "normal",
-							"children": [
-								{
-									"_type": "span",
-									"text": "Side projects are where you learn things your day job would never teach you. Not because the problems are harder, but because you're free to take risks. Try a language you've never used. Build something without a framework. Deploy to a platform you've only read about. The stakes are zero, which makes the learning maximum.",
-									"_key": "k7"
-								}
-							],
-							"_key": "k6"
-						},
-						{
-							"_type": "block",
-							"style": "normal",
-							"children": [
-								{
-									"_type": "span",
-									"text": "By Sunday evening, the thing sort of works. It's rough, the error handling is nonexistent, and the README is a single sentence. But it solves the problem I set out to solve, and I learned three things I didn't know on Friday. Not a bad weekend.",
-									"_key": "k9"
-								}
-							],
-							"_key": "k8"
-						}
-					]
-				},
-				"taxonomies": {
-					"category": ["development"],
-					"tag": ["creativity"]
-				}
-			},
-			{
-				"id": "post-7",
-				"slug": "notes-on-simplicity",
-				"status": "published",
-				"data": {
-					"title": "Notes on Simplicity",
-					"excerpt": "Simplicity isn't the absence of complexity. It's the result of understanding a problem well enough to solve it cleanly.",
-					"featured_image": {
-						"$media": {
-							"url": "https://images.unsplash.com/photo-1559051668-e1fa58f25786?w=1200&h=800&fit=crop",
-							"alt": "Geometric pattern carved into white paper",
-							"filename": "notes-on-simplicity.jpg"
-						}
-					},
-					"content": [
-						{
-							"_type": "block",
-							"style": "normal",
-							"children": [
-								{
-									"_type": "span",
-									"text": "Every piece of software starts simple. A few files, a clear purpose, a small surface area. Then features get added, edge cases get handled, and before long you're looking at something that requires a diagram to understand. This isn't inevitable, but it takes discipline to prevent.",
-									"_key": "k1"
-								}
-							],
-							"_key": "k0"
-						},
-						{
-							"_type": "block",
-							"style": "normal",
-							"children": [
-								{
-									"_type": "span",
-									"text": "The hard part of simplicity isn't the initial design. It's the ongoing resistance to complication. Every feature request, every bug fix, every refactor is an opportunity to add complexity. Saying no is the most important design skill, and the least celebrated.",
-									"_key": "k3"
-								}
-							],
-							"_key": "k2"
-						},
-						{
-							"_type": "block",
-							"style": "h2",
-							"children": [
-								{
-									"_type": "span",
-									"text": "Removing as a feature",
-									"_key": "k5"
-								}
-							],
-							"_key": "k4"
-						},
-						{
-							"_type": "block",
-							"style": "normal",
-							"children": [
-								{
-									"_type": "span",
-									"text": "The best version of a product often has fewer features than the previous one. Not because features were missing, but because someone had the courage to remove things that weren't earning their keep. Every feature has a cost - in maintenance, in cognitive load, in the weight of the interface.",
-									"_key": "k7"
-								}
-							],
-							"_key": "k6"
-						},
-						{
-							"_type": "block",
-							"style": "normal",
-							"children": [
-								{
-									"_type": "span",
-									"text": "Simplicity is a practice, not a destination. You never arrive at simple. You just keep asking: is this necessary? Could this be clearer? Is there a way to solve this problem by removing something instead of adding something? The answer is yes more often than you'd expect.",
-									"_key": "k9"
-								}
-							],
-							"_key": "k8"
-						}
-					]
-				},
-				"taxonomies": {
-					"category": ["notes"],
-					"tag": ["opinion"]
-				}
-			},
-			{
-				"id": "post-draft",
-				"slug": "work-in-progress",
-				"status": "draft",
-				"data": {
-					"title": "Work in Progress",
-					"excerpt": "This post is still being written.",
-					"content": [
-						{
-							"_type": "block",
-							"style": "normal",
-							"children": [
-								{
-									"_type": "span",
-									"text": "This is a draft post that won't appear in the public listing.",
-									"_key": "k1"
-								}
-							],
-							"_key": "k0"
+							"_type": "horizontalRule",
+							"_key": "hr3o"
 						}
 					]
 				}
 			}
 		]
-	}
+	},
+	"redirects": [
+		{
+			"source": "/index.html",
+			"destination": "/",
+			"type": 301
+		},
+		{
+			"source": "/blogs.html",
+			"destination": "/posts",
+			"type": 301
+		},
+		{
+			"source": "/about.html",
+			"destination": "/about",
+			"type": 301
+		},
+		{
+			"source": "/404.html",
+			"destination": "/404",
+			"type": 301
+		},
+		{
+			"source": "/blogs/building-static-sites.html",
+			"destination": "/posts/building-static-sites",
+			"type": 301
+		},
+		{
+			"source": "/blogs/welcome-to-my-blog.html",
+			"destination": "/posts/welcome-to-my-blog",
+			"type": 301
+		}
+	]
 }
