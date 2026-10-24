@@ -10,10 +10,12 @@ const { entries: posts, cacheHint } = await getEmDashCollection("posts", {
 if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
 
 // Legacy manifest dates are GMT+8 calendar days; render that day, not the UTC one.
-const iso = (d: Date | null | undefined) =>
-	d
-		? new Date(d.getTime() + 8 * 3600 * 1000).toISOString().slice(0, 10)
-		: "";
+const day = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Singapore" });
+const parts = (d: Date | null | undefined) => {
+	if (!d) return { iso: "", label: "" };
+	const p = Object.fromEntries(day.formatToParts(d).map((x) => [x.type, x.value]));
+	return { iso: `${p.year}-${p.month}-${p.day}`, label: `[${p.year}-${p.month}-${p.day}]` };
+};
 ---
 
 <Base
@@ -23,14 +25,14 @@ const iso = (d: Date | null | undefined) =>
 	ogImage="/assets/og/blogs.png"
 >
 	<h1 class="sr-only">Natsurii - Blogs</h1>
-	<div class="blog-header-banner">C:\BLOGS\INDEX.LOG</div>
+	<div class="blog-header-banner" translate="no">C:\BLOGS\INDEX.LOG</div>
 	<div id="blog-posts-list">
 		{
 			posts.map((post) => (
 				<div class="blog-post-card">
 					<div class="blog-post-date">
-						<time datetime={iso(post.data.publishedAt)}>
-							[{iso(post.data.publishedAt)}]
+						<time datetime={parts(post.data.publishedAt).iso}>
+							{parts(post.data.publishedAt).label}
 						</time>
 					</div>
 					<h2 class="blog-post-title">

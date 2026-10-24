@@ -6,7 +6,11 @@ interface Props {
 const { value = [] } = Astro.props;
 
 const esc = (s: string) =>
-	s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+	s
+		.replace(/&/g, "&amp;")
+		.replace(/</g, "&lt;")
+		.replace(/>/g, "&gt;")
+		.replace(/"/g, "&quot;");
 
 function inline(children: any[] = [], markDefs: any[] = []): string {
 	return children
@@ -84,7 +88,7 @@ for (const block of value) {
 			const cls = lang ? `language-${lang}` : "";
 			// No whitespace between the tags: <pre> renders it as a leading blank line.
 			return (
-				<pre class={cls}><code class={cls} set:html={esc(block.code ?? "")} /></pre>
+				<pre class={cls} tabindex="0"><code class={cls} set:html={esc(block.code ?? "")} /></pre>
 			);
 		}
 
@@ -92,19 +96,20 @@ for (const block of value) {
 			const src = imgSrc(block.asset);
 			const filename = src.split("/").pop() ?? "";
 			return (
-				<div class="retro-img-wrapper">
-					<div class="retro-img-caption">
+				<figure class="retro-img-wrapper">
+					<figcaption class="retro-img-caption">
 						&gt; file: {filename} ({block.alt})
-					</div>
+					</figcaption>
 					<img
 						src={src}
 						alt={block.alt ?? ""}
 						class="retro-blog-img"
 						loading="lazy"
-						width={block.width}
-						height={block.height}
+						decoding="async"
+						width={block.width ?? 320}
+						height={block.height ?? 320}
 					/>
-				</div>
+				</figure>
 			);
 		}
 

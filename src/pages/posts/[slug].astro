@@ -27,7 +27,10 @@ const imgUrl = (img: any): string | undefined => {
 	return undefined;
 };
 
-const image = imgUrl(post.data.featured_image);
+const image = imgUrl(post.data.featured_image) ?? "/assets/og/blogs.png";
+// The body usually opens with its own h1; only add a hidden one when it does not.
+const content = post.data.content ?? [];
+const leadIsH1 = content[0]?._type === "block" && content[0]?.style === "h1";
 const published = post.data.publishedAt;
 ---
 
@@ -40,32 +43,33 @@ const published = post.data.publishedAt;
 	publishedTime={published ? published.toISOString() : undefined}
 	mainClass="ascii-container markdown-container"
 >
-	<h1 class="sr-only">{post.data.title}</h1>
+	<Fragment slot="head">
+		<link
+			id="prism-dark"
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-okaidia.min.css"
+		/>
+		<link
+			id="prism-light"
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css"
+			disabled
+		/>
+		<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer
+		></script>
+	</Fragment>
+	{!leadIsH1 && <h1 class="sr-only">{post.data.title}</h1>}
 	<div class="blog-nav-top">
 		<a href="/posts">&lt;-- [back to blogs]</a>
 		<hr class="retro-hr" />
 	</div>
 	<div id="post-content">
-		<RetroPortableText value={post.data.content ?? []} />
+		<RetroPortableText value={content} />
 	</div>
 	<div class="blog-nav-bottom">
 		<hr class="retro-hr" />
 		<a href="/posts">&lt;-- [back to blogs]</a>
 	</div>
-
-	<link
-		id="prism-dark"
-		rel="stylesheet"
-		href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-okaidia.min.css"
-	/>
-	<link
-		id="prism-light"
-		rel="stylesheet"
-		href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css"
-		disabled
-	/>
-	<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" defer
-	></script>
 
 	<script is:inline>
 		document.addEventListener("DOMContentLoaded", function () {

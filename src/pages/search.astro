@@ -79,7 +79,9 @@ const countLabel = nextCursor
 						type="search"
 						name="q"
 						value={query}
-						placeholder="Search posts"
+						placeholder="Search posts…"
+						autocomplete="off"
+						spellcheck={false}
 						autofocus={!query}
 					/>
 					<button type="submit" class="btn search-field__submit">Search</button>

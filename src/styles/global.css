@@ -207,6 +207,12 @@ body::after {
   .blog-header-banner::after {
     animation: none;
   }
+  /* Theme/glow transitions are decorative too. */
+  body,
+  a,
+  .theme-switch .sw-thumb {
+    transition: none;
+  }
 }
 
 /* Shared styles for ASCII art in semantic containers */
@@ -490,6 +496,11 @@ a:hover {
   font-style: italic;
 }
 
+#post-content pre:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 #post-content pre {
   background-color: var(--code-bg);
   border: 1px solid var(--code-border);
@@ -541,8 +552,13 @@ a:hover {
   line-height: 0;
 }
 
+figure.retro-img-wrapper {
+  margin-inline: 0;
+}
+
 .retro-img-caption {
   margin-top: 5px;
+  overflow-wrap: anywhere;
   color: var(--faint);
   font-size: 0.9em;
 }
