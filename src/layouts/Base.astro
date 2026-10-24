@@ -94,12 +94,13 @@ const pageCtx = createPublicPageContext({
 		<script is:inline>
 			document.addEventListener("DOMContentLoaded", function () {
 				if (!window.asciiToHTML) return;
-				asciiToHTML("/components/header.utf8ans", "header", 2, 5, function () {
-					addHyperlinkToText("header", "<home>", "/");
-					addHyperlinkToText("header", "<about>", "/about");
-					addHyperlinkToText("header", "<blogs>", "/posts");
+				// Scope to the ascii containers: pages may render their own <header>/<footer>.
+				asciiToHTML("/components/header.utf8ans", "header.ascii-container", 2, 5, function () {
+					addHyperlinkToText("header.ascii-container", "<home>", "/");
+					addHyperlinkToText("header.ascii-container", "<about>", "/about");
+					addHyperlinkToText("header.ascii-container", "<blogs>", "/posts");
 				});
-				asciiToHTML("/components/footer.utf8ans", "footer", 2, 5);
+				asciiToHTML("/components/footer.utf8ans", "footer.ascii-container", 2, 5);
 			});
 		</script>
 		<EmDashBodyEnd page={pageCtx} />

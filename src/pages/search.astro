@@ -83,6 +83,7 @@ const countLabel = nextCursor
 						autocomplete="off"
 						spellcheck={false}
 						autofocus={!query}
+						data-autofocus={!query ? "" : undefined}
 					/>
 					<button type="submit" class="btn search-field__submit">Search</button>
 				</div>
@@ -180,6 +181,19 @@ const countLabel = nextCursor
 		)
 	}
 </Base>
+
+<script is:inline>
+	// Only focus on desktop-class pointers; on touch the keyboard would cover the page.
+	// Chromium already applied the parsed `autofocus`, so blur rather than just drop the attribute.
+	if (matchMedia("(pointer: coarse)").matches) {
+		document.addEventListener("DOMContentLoaded", () => {
+			const field = document.querySelector("#search-query[data-autofocus]");
+			if (!field) return;
+			field.removeAttribute("autofocus");
+			if (document.activeElement === field) field.blur();
+		});
+	}
+</script>
 
 <style>
 	.search-form {
